@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a href="{% url 'events:home' '2024' 'May' %}" class="navbar-brand">My Club</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-lable="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-time">
+                    <a href="{% url 'events:home' '2024' 'May' %}" class="nav-link">March</a>
+                </li>
+                <li>
+                    <a href="{% url 'events:event-list' %}" class="nav-link">Events</a>
+                </li>
+                <li>
+                    <a href="{% url 'events:add-venue' %}" class="nav-link">Add Venue</a>
+                </li>
+            </ul>
+            <form action="" class="d-flex">
+                <input type="text" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button type="Submit" class="btn btn-outline-success" >Search</button>
+
+            </form>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</nav>
