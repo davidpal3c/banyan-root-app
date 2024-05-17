@@ -4,9 +4,28 @@ from calendar import HTMLCalendar
 from datetime import datetime
 
 from django.http import HttpResponseRedirect    # redirect_lazy change (redirect back to the page itself)
-from .models import Event
+from .models import Event, Venue
 from .forms import VenueForm
 
+
+
+
+def search_venues(request):    
+    if request.method == "POST":    
+        return render(request, 'events/search_venues.html', {})
+    
+    else: 
+        return render(request, 'events/search_venues.html', {})
+
+
+def show_venue(request, venue_id):
+    venue = Venue.objects.get(pk=venue_id)
+    return render(request, 'events/show_venue.html', {'venue': venue})
+
+
+def list_venues(request):
+    venue_list = Venue.objects.all()
+    return render(request, 'events/venues.html', {'venue_list': venue_list})
 
 
 def add_venue(request):

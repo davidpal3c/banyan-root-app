@@ -13,12 +13,16 @@
                     <a href="{% url 'events:event-list' %}" class="nav-link">Events</a>
                 </li>
                 <li>
-                    <a href="{% url 'events:add-venue' %}" class="nav-link">Add Venue</a>
+                    <a href="{% url 'events:list-venues' %}" class="nav-link">Venues</a>
                 </li>
+                <!-- <li>
+                    <a href="{% url 'events:add-venue' %}" class="nav-link">Add Venue</a>
+                </li> -->
             </ul>
-            <form action="" class="d-flex">
+            <form action="" class="d-flex" method="POST" action="{% url 'events:search-venues' %}">
+                {% csrf_token %}
                 <input type="text" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button type="Submit" class="btn btn-outline-success" >Search</button>
+                <button type="Submit" class="btn btn-outline-secondary" >Search</button>
 
             </form>
         </div>
