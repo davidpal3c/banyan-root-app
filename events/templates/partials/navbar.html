@@ -19,9 +19,9 @@
                     <a href="{% url 'events:add-venue' %}" class="nav-link">Add Venue</a>
                 </li> -->
             </ul>
-            <form action="" class="d-flex" method="POST" action="{% url 'events:search-venues' %}">
+            <form method="POST" action="{% url 'events:search-venues' %}" class="d-flex">
                 {% csrf_token %}
-                <input type="text" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input type="text" class="form-control me-2" type="search" placeholder="Search Venues" name="searched" aria-label="Search">
                 <button type="Submit" class="btn btn-outline-secondary" >Search</button>
 
             </form>

@@ -11,8 +11,13 @@ from .forms import VenueForm
 
 
 def search_venues(request):    
-    if request.method == "POST":    
-        return render(request, 'events/search_venues.html', {})
+    if request.method == "POST":  
+        searched = request.POST['searched']
+        
+        # query database for search
+        venues = Venue.objects.filter(name__contains=searched)
+
+        return render(request, 'events/search_venues.html', {'searched': searched, 'venues': venues})
     
     else: 
         return render(request, 'events/search_venues.html', {})
