@@ -10,7 +10,13 @@
                     <a href="{% url 'events:home' '2024' 'May' %}" class="nav-link">March</a>
                 </li>
                 <li>
-                    <a href="{% url 'events:event-list' %}" class="nav-link">Events</a>
+                    <a href="{% url 'events:list-events' %}" class="nav-link">Events</a>
+                </li>
+                <li>
+                    <a href="{% url 'events:add-event' %}" class="nav-link">Add Event</a>
+                </li>
+                <li>
+                    <a href="{% url 'events:add-venue' %}" class="nav-link">Add Venue</a>
                 </li>
                 <li>
                     <a href="{% url 'events:list-venues' %}" class="nav-link">Venues</a>
