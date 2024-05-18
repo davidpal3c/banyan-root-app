@@ -8,7 +8,7 @@ urlpatterns = [
    
     path('', views.home, name='home'),
     path('<int:year>/<str:month>/', views.home, name='home'),
-    path('events/', views.list_events, name='list-events'),
+    path('events/', views.all_events, name='list-events'),
     path('venues/', views.list_venues, name='list-venues'),
     path('add_venue/', views.add_venue, name='add-venue'),    # path converters: int, str, path (whole urls/), slugs (hyphen-and_unerscores), UUID
     path('show_venue/<venue_id>/', views.show_venue, name='show-venue'),
@@ -18,4 +18,7 @@ urlpatterns = [
     path('update_event/<event_id>', views.update_event, name='update-event'),
     path('delete_event/<event_id>', views.delete_event, name='delete-event'),
     path('delete_venue/<venue_id>', views.delete_venue, name='delete-venue'),
+    path('venue_text', views.venue_text , name='venue-text'),
+    path('venue_csv', views.venue_csv , name='venue-csv'),
+    path('venue_pdf', views.venue_pdf , name='venue-pdf'),
 ]
