@@ -4,8 +4,11 @@
 
     <center>
 
+
+    {% if user.is_authenticated %}
+
         <h1>Add Venue to Database</h1>
-        <br><br>
+        <br><br>{{ user.id }}
 
         {% if submitted %}
             Your Venue Was Submitted Successfully!
@@ -20,6 +23,14 @@
             </form>
         {% endif %}
 
+    {% else %}
+
+        <h2>Sorry! You Must Be Logged In To View This Page...</h2>
+    
+    
+        <a href="{% url 'login' %}" class="btn btn-success">Login Here</a>
+
+    {% endif %}
     </center>
 
 {% endblock %}

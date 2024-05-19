@@ -8,7 +8,7 @@ from datetime import datetime
 
 from django.http import HttpResponseRedirect, HttpResponse    # redirect_lazy change (redirect back to the page itself)
 from .models import Event, Venue
-from .forms import VenueForm, EventForm
+from .forms import VenueForm, EventForm, AdminEventForm
 import csv
 
 # pdf functionality modules
@@ -131,7 +131,7 @@ def delete_event(request, event_id):
 
 
 def update_venue(request, venue_id):
-    venue = Venue.objects.get(pk=venue_id)
+    venue = Venue.objects.get(pk=venue_id)  
     form = VenueForm(request.POST or None, instance=venue)
     
     if form.is_valid():
@@ -145,8 +145,11 @@ def update_venue(request, venue_id):
 
 def update_event(request, event_id):
     event = Event.objects.get(pk=event_id)
-    form = EventForm(request.POST or None, instance=event)
-    
+    if request.user.is_superuser:
+        form = AdminEventForm(request.POST or None, instance=event)
+    else:
+        form = EventForm(request.POST or None, instance=event)
+
     if form.is_valid():
         form.save()
         return redirect('events:list-events')
@@ -168,7 +171,10 @@ def add_venue(request):
     if request.method == "POST":
         form = VenueForm(request.POST)
         if form.is_valid():
-            form.save()
+            venue = form.save(commit=False)
+            venue.owner = request.user.id        # assigns user id as model attribute
+            venue.save()
+            # form.save()
             return HttpResponseRedirect('/add_venue?submitted=True')        # sends submitted variable into get request
 
     else:   
@@ -183,20 +189,34 @@ def add_venue(request):
 
 def add_event(request):
     submitted = False           # default variable for submit
-    
     if request.method == "POST":
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/add_event?submitted=True')        # sends submitted variable into get request
+        if request.user.is_superuser:
+            form = AdminEventForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/add_event?submitted=True')        # sends submitted variable into get request
+
+        else: 
+            form = EventForm(request.POST)
+            if form.is_valid():
+                # form.save()
+                event = form.save(commit=False)
+                event.manager = request.user       
+                event.save()
+                return HttpResponseRedirect('/add_event?submitted=True')        # sends submitted variable into get request
 
     else:   
-        form = EventForm
+        # Going to page, Not submitting
+        if request.user.is_superuser:  
+            form = AdminEventForm
+        else:
+            form = EventForm
+
         if 'submitted' in request.GET:              # submitted variable found in GET request
             submitted = True
 
 
-        return render(request, 'events/add_event.html', {'form': form, 'submitted': submitted})
+    return render(request, 'events/add_event.html', {'form': form, 'submitted': submitted})
 
 
 def list_venues(request):

@@ -2,14 +2,16 @@
 
 {% block content %}
 
-    
-        <h1>Update Venue...</h1><br>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update" class="btn btn-secondary">
-
-    </form>
-
+{% if user.is_authenticated %}
+    <h1>Update Venue...</h1><br>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update" class="btn btn-secondary">
+        </form>
+{% else %}
+    <h2>Sorry! You Must Be Logged In To View This Page...</h2>
+    <a href="{% url 'login' %}" class="btn btn-success">Login Here</a>
+{% endif %}
 
 {% endblock %} 

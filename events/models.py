@@ -9,6 +9,7 @@ class Venue(models.Model):
     phone           = models.CharField('Contact Phone', max_length=25, blank=True)
     web             = models.URLField('Website Address', blank=True)
     email_address   = models.EmailField('Email', blank=True)
+    owner           = models.IntegerField('Venue Owner', blank=False, default=1)     # associates with user_id
 
 
     def __str__(self):
@@ -29,7 +30,7 @@ class Event(models.Model):
     name            = models.CharField('Event Name', max_length=150)
     event_date      = models.DateTimeField('Event date')
     venue           = models.ForeignKey(Venue, on_delete=models.CASCADE, blank=True, null=True)   #connect Venue entity   
-    manager         = models.ForeignKey(User, blank=True, null= True, on_delete=models.SET_NULL)    # events linked to user won't be deleted if user is deleted 
+    manager         = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)    # events linked to user won't be deleted if user is deleted 
     description     = models.TextField(blank=True)
     attendees       = models.ManyToManyField(ClubUser, blank=True)
  
