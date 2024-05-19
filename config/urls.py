@@ -19,5 +19,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('events.urls'))
+    path('', include('events.urls')),   
+    path('userauth/', include('django.contrib.auth.urls')),    # built-in django auth
+    path('userauth/', include('userauth.urls')),   
 ]
+
+
+# Configure Admin Titles
+admin.site.site_header = "Events-App Admin Page"
+admin.site.site_title = "Browser Lookup"
+admin.site.index_title = "Welcome To Admin Dashboard"
+

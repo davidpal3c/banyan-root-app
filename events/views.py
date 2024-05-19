@@ -11,11 +11,19 @@ from .models import Event, Venue
 from .forms import VenueForm, EventForm
 import csv
 
+# pdf functionality modules
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 import io 
+
+# pagination
+from django.core.paginator import Paginator
+
+
+
+
 
 
 
@@ -192,9 +200,17 @@ def add_event(request):
 
 
 def list_venues(request):
-    venue_list = Venue.objects.all().order_by('name')       # random ='?'
-    return render(request, 'events/venues.html', 
-                  {'venue_list': venue_list})
+    # venue_list = Venue.objects.all().order_by('name')       # order by random ='?'
+ 
+    # pagination setup
+    p = Paginator(Venue.objects.all(), 3)
+    page = request.GET.get('page')
+    venues = p.get_page(page)
+    page_range = range(1, venues.paginator.num_pages + 1) 
+
+    return render(request, 'events/venues.html', {'venues': venues,'page_range': page_range})
+    # return render(request, 'events/venues.html', {'venue_list': venue_list, 'venues':venues})
+
 
 
 def all_events(request):
@@ -206,6 +222,7 @@ def all_events(request):
     return render(request, 'events/event_list.html', 
                   {'event_list': event_list,
                    'attendee_count': attendee_count})
+
 
 
 def home(request, year, month):
@@ -226,7 +243,7 @@ def home(request, year, month):
     # get current time
     time = now.strftime('%I:%M: %p')
 
-    return render(request, 'core/home.html',
+    return render(request, 'home',
                    {"name": name,
                     "year": year,
                     "month": month,
