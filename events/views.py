@@ -8,7 +8,11 @@ from datetime import datetime
 
 from django.http import HttpResponseRedirect, HttpResponse    # redirect_lazy change (redirect back to the page itself)
 from .models import Event, Venue
+# Imports User Model from Django
+from django.contrib.auth.models import User
+
 from .forms import VenueForm, EventForm, AdminEventForm
+from django.contrib import messages
 import csv
 
 # pdf functionality modules
@@ -20,9 +24,6 @@ import io
 
 # pagination
 from django.core.paginator import Paginator
-
-
-
 
 
 
@@ -102,6 +103,23 @@ def venue_text(request):
 
 
 
+def my_events(request):
+    if request.user.is_authenticated:
+        user = request.user.id
+        events = Event.objects.filter(attendees=user)
+
+
+        return render(request, 'events/my_events.html', 
+                      {"events":events,})
+
+    else:
+        messages.success(request, ("You aren't Authorized to View this Page."))
+        return redirect('events:list-events')
+
+
+   
+
+
 def search_venues(request):    
     if request.method == "POST":  
         searched = request.POST['searched']
@@ -126,8 +144,15 @@ def delete_venue(request, venue_id):
 
 def delete_event(request, event_id):
     event = Event.objects.get(pk=event_id)
-    event.delete()
-    return redirect('events:list-events')
+  
+    if request.user == event.manager:
+        event.delete()
+        messages.success(request, ("Event Deleted!"))
+        return redirect('events:list-events')
+    
+    else:
+        messages.success(request, ("You aren't Authorized to Delete This Event."))
+        return redirect('events:list-events')
 
 
 def update_venue(request, venue_id):
@@ -161,8 +186,11 @@ def update_event(request, event_id):
 
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
+    venue_owner = User.objects.get(pk=venue.owner)      # venue owner query | non-primarey model attribute alternative
+
     return render(request, 'events/show_venue.html', 
-                  {'venue': venue})
+                  {'venue': venue,
+                   'venue_owner': venue_owner})
 
 
 

@@ -32,7 +32,7 @@ class Event(models.Model):
     venue           = models.ForeignKey(Venue, on_delete=models.CASCADE, blank=True, null=True)   #connect Venue entity   
     manager         = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)    # events linked to user won't be deleted if user is deleted 
     description     = models.TextField(blank=True)
-    attendees       = models.ManyToManyField(ClubUser, blank=True)
+    attendees       = models.ManyToManyField(ClubUser, blank=True)  # change to User instead
  
     def __str__(self):
         return self.name
