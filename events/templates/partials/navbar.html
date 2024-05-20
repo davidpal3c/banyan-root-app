@@ -18,8 +18,8 @@
                         <li><a href="{% url 'events:list-events' %}" class="dropdown-item">Show All Events</a></li>
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'events:add-event' %}" class="dropdown-item">Add Event</a></li>
-                        {% endif %}
-                        <li><a href="{% url 'events:my-events' %}" class="dropdown-item">My Events</a></li>
+                            <li><a href="{% url 'events:my-events' %}" class="dropdown-item">My Events</a></li>
+                        {% endif%}
                         <li><a href="{% url 'events:search-events' %}" class="dropdown-item">Search Events</a></li>
                     </ul>
                 </li>
@@ -51,14 +51,17 @@
 
                 <!-- Authentication access -->
                 {% if user.is_authenticated %}
-                    <li>
+                    {% if user.is_superuser %}
+                        <li class="nav-item"><a href="{% url 'events:admin-approval' %}" class="nav-link">Admin Dashboard</a></li>
+                    {% endif %}
+                    <li class="nav-item">
                         <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                     </li>
                 {% else %}
-                    <li>
+                    <li class="nav-item">
                         <a href="{% url 'login' %}" class="nav-link">Login</a>
                     </li>
-                    <li>
+                    <li class="nav-item">
                         <a href="{% url 'register-user' %}" class="nav-link">Register</a>
                     </li>
                 {% endif %}
@@ -68,7 +71,7 @@
             <!-- search field -->
             <form method="POST" action="{% url 'events:search-venues' %}" class="d-flex">
                 {% csrf_token %}
-                <input type="text" class="form-control me-2" type="search" placeholder="Search Venues" name="searched" aria-label="Search">
+                <input type="search" class="form-control me-2" placeholder="Search Venues" name="searched" aria-label="Search">
                 <button type="Submit" class="btn btn-outline-secondary" >Search</button>
             </form>
         </div>

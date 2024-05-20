@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import date
 
 class Venue(models.Model):
     name            = models.CharField('Venue Name', max_length=120)
@@ -10,6 +10,7 @@ class Venue(models.Model):
     web             = models.URLField('Website Address', blank=True)
     email_address   = models.EmailField('Email', blank=True)
     owner           = models.IntegerField('Venue Owner', blank=False, default=1)     # associates with user_id
+    venue_image     = models.ImageField(upload_to="images/", null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -32,7 +33,37 @@ class Event(models.Model):
     manager         = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='managed_event')    # events linked to user won't be deleted if user is deleted 
     description     = models.TextField(blank=True)
     attendees       = models.ManyToManyField(User, blank=True, related_name='attended_events')  
- 
+    approved        = models.BooleanField('Approved', default=False, blank=True, null=True)
+
+
     def __str__(self):
         return self.name
     
+
+    # calculated field for days left until event
+    @property
+    def days_until(self):
+        today = date.today()
+        days_until = self.event_date.date() - today         # date of event minus today's date
+        days_until_stripped = str(days_until).split(",", 1)[0]
+
+        return days_until_stripped   
+
+
+    @property
+    def is_past(self):
+        today = date.today()
+        if self.event_date.date() < today:
+            event_status = "Past"
+            return event_status
+        
+        else:
+            event_status = "Future"
+            return event_status
+        
+
+
+
+
+        
+

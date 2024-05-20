@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Show Event</h1>
+
+    
+        {% if event.approved %}
+        <div class="card">
+            <div class="card-header">
+            {{ event }}
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">Venue: {{ event.venue }}</h5>
+            <p class="card-text">     
+                <ul>   
+                    <li>Date: {{ event.event_date }}</li>
+                    <li>Days Until Event: {{ event.days_until }} </li>
+                    <li>Ocurred: {{ event.is_past }} </li>
+                    <li>Venue URL: {{ event.venue.web }}</li>
+                    <li>Manager: {{ event.manager }}</li>
+                    <li>Description: {{ event.description }}</li>
+                    <li>Approve: {{ event.approved }}</li>
+                    <br>
+                </ul>
+                <ul>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Confirmed Attendees ({{ attendee_count }}):
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                        {% for user in event.attendees.all %}
+                        <li>{{ user }}</li>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </ul>        
+            </p>      
+            </div>
+            {% if user.is_authenticated %}
+                {% if user == event.manager %}
+                    <div class="card-footer text-muted">
+                        <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+                        <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+                    </div>
+                {% endif %}
+            {% endif %}    
+        {% endif %}
+
+
+    </div><br><br>
+   
+
+{% endblock %} 

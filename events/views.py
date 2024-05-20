@@ -6,6 +6,7 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse    # redirect_lazy change (redirect back to the page itself)
 from .models import Event, Venue
 # Imports User Model from Django
@@ -168,7 +169,7 @@ def delete_event(request, event_id):
 
 def update_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)  
-    form = VenueForm(request.POST or None, instance=venue)
+    form = VenueForm(request.POST or None, request.FILES or None, instance=venue)
     
     if form.is_valid():
         form.save()
@@ -197,21 +198,95 @@ def update_event(request, event_id):
 
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
-    venue_owner = User.objects.get(pk=venue.owner)      # venue owner query | non-primarey model attribute alternative
+    venue_owner = User.objects.get(pk=venue.owner)      # venue owner query | non-primary model attribute alternative
 
     return render(request, 'events/show_venue.html', 
                   {'venue': venue,
                    'venue_owner': venue_owner})
 
+# Show Event
+def show_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    
+    event_list = Event.objects.all().order_by('event_date')
+
+    event_with_attendee_count = Event.objects.annotate(num_attendees=Count('attendees'))
+    attendee_count = event_with_attendee_count.count()
+
+    return render(request, 'events/show_event.html', 
+                  {"event": event,
+                   "event_list": event_list,
+                   "attendee_count": attendee_count})
+
+
+# Events per Venue
+def venue_events(request, venue_id):
+    # Lookup venue
+    venue = Venue.objects.get(id=venue_id)
+    # Get venue events
+    events = venue.event_set.all()           # grab events associated with venue (id)
+
+    if events:
+        return render(request, 'events/venue_events.html', {"events": events})
+    
+    else:
+        messages.success(request, ("That Venue Has No Events At This Time..."))
+        return redirect('events:admin-approval')
+
+
+
+def admin_approval(request):
+
+    # Get venues
+    venue_list = Venue.objects.all()
+
+    # Get counts
+    event_count = Event.objects.all().count()
+    venue_count = Venue.objects.all().count()
+    user_count = User.objects.all().count()
+
+    event_list = Event.objects.all().order_by('-event_date')
+    if request.user.is_superuser:
+        if request.method == "POST":
+            id_list = request.POST.getlist('boxes')     # get list with event_id of checked boxes (named 'boxes)
+            # print(id_list)            # debugging log
+
+            # Uncheck all events
+            event_list.update(approved=False)
+            
+            # # Update database
+            for i in id_list:
+                Event.objects.filter(pk=int(i)).update(approved=True)       # updates approve to true, by filtering pk of event.id in box 
+
+            # Shows success Message and Redirects to url
+            messages.success(request, ('Event List Approval Updated.'))
+            return redirect('events:list-events')
+        
+        else:
+            return render(request, 'events/admin_approval.html', 
+                          {"event_list": event_list,
+                           "event_count": event_count,
+                           "venue_count": venue_count,
+                           "user_count": user_count,
+                           "venue_list": venue_list})
+        
+    else: 
+        messages.success(request, ('Administrator Permission is required to access this page'))
+        return redirect('events:list-events')
+    
+
+    return render(request, 'events/admin_approval.html')
 
 
 def add_venue(request):
     submitted = False           # default variable for submit
     if request.method == "POST":
-        form = VenueForm(request.POST)
+        form = VenueForm(request.POST, request.FILES)
         if form.is_valid():
             venue = form.save(commit=False)
             venue.owner = request.user.id        # assigns user id as model attribute
+
+            print(request.FILES)        # debugging log
             venue.save()
             # form.save()
             return HttpResponseRedirect('/add_venue?submitted=True')        # sends submitted variable into get request
@@ -287,6 +362,12 @@ def all_events(request):
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     name = "Moe"
     month = month.capitalize()
+
+    # if year is None:
+    #     year = datetime.now().year
+    # if month is None:
+    #     month = datetime.now().strftime('%B').capitalize()
+
 
     # convert month from name to number
     month_number = int(list(calendar.month_name).index(month))

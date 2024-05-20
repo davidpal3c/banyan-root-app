@@ -12,7 +12,6 @@
         <h5 class="card-title">{{ venue }}</h5>
         <p class="card-text">     
         <ul>   
-
             <li>Address: {{ venue.address }}</li>
             <li>{{ venue.zip_code }}</li>
             <li>{{ venue.phone }}</li>
@@ -21,7 +20,12 @@
             <li>Owner: {{ venue_owner }}</a>
             <li>Owner's Email: {{ venue_owner.email }}</a>
         </ul>
+        {% if venue.venue_image %}
+            <img src="{{ venue.venue_image.url }}" alt="venue_image" width=500>
+        {% endif %}
     </div>
+
 </div>
+
 
 {% endblock %} 
