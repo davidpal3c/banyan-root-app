@@ -2,26 +2,26 @@
 
 {% block content %}
 
-    <br>
+<br>
 
-    <div class="card">
-        <div class="card-header">
-          Venue - test
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{ venue }}</h5>
-            <p class="card-text">     
-            <ul>   
+<div class="card">
+    <div class="card-header">
+        Venue - test
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ venue }}</h5>
+        <p class="card-text">     
+        <ul>   
 
-                <li>Address: {{ venue.address }}</li>
-                <li>{{ venue.zip_code }}</li>
-                <li>{{ venue.phone }}</li>
-                <li>{{ venue.web }}</li>
-                <li><a href="{{ venue.web }}">{{ venue.email_address }}</a>
-                <li>Owner: {{ venue_owner }}</a>
-                <li>Owner's Email: {{ venue_owner.email }}</a>
-            </ul>
-        
+            <li>Address: {{ venue.address }}</li>
+            <li>{{ venue.zip_code }}</li>
+            <li>{{ venue.phone }}</li>
+            <li>{{ venue.web }}</li>
+            <li><a href="{{ venue.web }}">{{ venue.email_address }}</a>
+            <li>Owner: {{ venue_owner }}</a>
+            <li>Owner's Email: {{ venue_owner.email }}</a>
+        </ul>
+    </div>
+</div>
 
-    </center>
 {% endblock %} 

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a href="{% url 'events:home' '2024' 'May' %}" class="navbar-brand">My Club: {{ user }}</a>
+        <a href="{% url 'events:home' '2024' 'May' %}" class="navbar-brand">My Club</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-lable="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,6 +20,7 @@
                             <li><a href="{% url 'events:add-event' %}" class="dropdown-item">Add Event</a></li>
                         {% endif %}
                         <li><a href="{% url 'events:my-events' %}" class="dropdown-item">My Events</a></li>
+                        <li><a href="{% url 'events:search-events' %}" class="dropdown-item">Search Events</a></li>
                     </ul>
                 </li>
 
@@ -48,7 +49,7 @@
                     </ul>
                   </li>
 
-
+                <!-- Authentication access -->
                 {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'logout' %}" class="nav-link">Logout</a>
@@ -61,13 +62,14 @@
                         <a href="{% url 'register-user' %}" class="nav-link">Register</a>
                     </li>
                 {% endif %}
-
+                    <!-- <li><a href="">{{ user }}</a></li> -->
             </ul>
+            
+            <!-- search field -->
             <form method="POST" action="{% url 'events:search-venues' %}" class="d-flex">
                 {% csrf_token %}
                 <input type="text" class="form-control me-2" type="search" placeholder="Search Venues" name="searched" aria-label="Search">
                 <button type="Submit" class="btn btn-outline-secondary" >Search</button>
-
             </form>
         </div>
 

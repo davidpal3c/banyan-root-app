@@ -11,7 +11,6 @@ class Venue(models.Model):
     email_address   = models.EmailField('Email', blank=True)
     owner           = models.IntegerField('Venue Owner', blank=False, default=1)     # associates with user_id
 
-
     def __str__(self):
         return self.name
     
@@ -30,9 +29,9 @@ class Event(models.Model):
     name            = models.CharField('Event Name', max_length=150)
     event_date      = models.DateTimeField('Event date')
     venue           = models.ForeignKey(Venue, on_delete=models.CASCADE, blank=True, null=True)   #connect Venue entity   
-    manager         = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)    # events linked to user won't be deleted if user is deleted 
+    manager         = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='managed_event')    # events linked to user won't be deleted if user is deleted 
     description     = models.TextField(blank=True)
-    attendees       = models.ManyToManyField(ClubUser, blank=True)  # change to User instead
+    attendees       = models.ManyToManyField(User, blank=True, related_name='attended_events')  
  
     def __str__(self):
         return self.name

@@ -6,25 +6,53 @@
     {% if searched %}
         <h1>You searched for {{ searched }}</h1><br>
 
+
+
         <table class="table table-striped table-hover table-bordered">
             {% for venue in venues %}
-                <tr>
-                    <td>
-                        <a href="{% url 'events:show-venue' venue.id %}">{{ venue }}</a>
-                    </td>
-                </tr> 
+                <div class="card">
+                    <div class="card-header">
+                        Venue - test
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ venue }}</h5>
+                        <p class="card-text">     
+                        <ul>   
+                            {% if venue.address %}
+                                <li>Address: {{ venue.address }}</li>
+                            {% endif %}
+
+                            {% if venue.zip_code %}
+                                <li>Zip Code: {{ venue.zip_code }}</li>
+                            {% endif %}
+
+                            {% if venue.phone %}
+                                <li>Phone: {{ venue.phone }}</li>
+                            {% endif %}
+
+                            {% if venue.web %}
+                                <li>Website: <a href="{{ venue.web }}">{{ venue.web }}</a></li>
+                            {% endif %}
+
+                            {% if venue.email %}
+                                <li>Email: <a href="{{ venue.email }}">{{ venue.email_address }}</a>
+                            {% endif %}
+
+                            {% if venue.owner %}
+                                <li>Owner: {{ venue.owner }}</a>
+                            {% endif %}                                  
+                        </ul>
+                    </div>
+                </div>
+                <br><br>
             {% endfor %}
         </table>
         <br>
 
-
-            
         {% else %}
             <h1>Hey! You Forgot To Search For A Venue...</h1>
 
         {% endif%}
 
-
-    </center>
 
 {% endblock %} 

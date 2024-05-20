@@ -107,7 +107,7 @@ def my_events(request):
     if request.user.is_authenticated:
         user = request.user.id
         events = Event.objects.filter(attendees=user)
-
+        # managed_events = Event.objects.filter()
 
         return render(request, 'events/my_events.html', 
                       {"events":events,})
@@ -115,9 +115,20 @@ def my_events(request):
     else:
         messages.success(request, ("You aren't Authorized to View this Page."))
         return redirect('events:list-events')
+ 
+def search_events(request):
+    if request.method == "POST":  
+        searched = request.POST['searched']
+        events = Event.objects.filter(description__contains=searched)      # query database for search
 
+        return render(request, 'events/search_events.html', 
+                      {'searched': searched,
+                       'events': events})
+    
+    else: 
+        return render(request, 'events/search_events.html', {})
 
-   
+    
 
 
 def search_venues(request):    
@@ -273,13 +284,12 @@ def all_events(request):
 
 
 
-def home(request, year, month):
+def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     name = "Moe"
     month = month.capitalize()
 
     # convert month from name to number
-    month_number = list(calendar.month_name).index(month)
-    month_number = int(month_number)
+    month_number = int(list(calendar.month_name).index(month))
 
     # create calendar
     cal = HTMLCalendar().formatmonth(year, month_number)
@@ -291,7 +301,14 @@ def home(request, year, month):
     # get current time
     time = now.strftime('%I:%M: %p')
 
-    return render(request, 'home',
+
+    # query events model for particular date
+    event_list = Event.objects.filter(
+                    event_date__year=year,
+                    event_date__month=month_number,
+                    )
+
+    return render(request, 'events/home.html',
                    {"name": name,
                     "year": year,
                     "month": month,
@@ -299,6 +316,7 @@ def home(request, year, month):
                     "cal": cal,
                     "current_year": current_year,
                     "time": time,
+                    "event_list": event_list
                     })
 
 
