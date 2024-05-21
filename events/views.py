@@ -200,9 +200,14 @@ def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
     venue_owner = User.objects.get(pk=venue.owner)      # venue owner query | non-primary model attribute alternative
 
+    # Get events for particular venue
+    events = venue.event_set.all()  
+
     return render(request, 'events/show_venue.html', 
                   {'venue': venue,
-                   'venue_owner': venue_owner})
+                   'venue_owner': venue_owner,
+                   'events': events})
+
 
 # Show Event
 def show_event(request, event_id):
@@ -238,7 +243,7 @@ def venue_events(request, venue_id):
 def admin_approval(request):
 
     # Get venues
-    venue_list = Venue.objects.all()
+    venue_list = Venue.objects.all().order_by('name')
 
     # Get counts
     event_count = Event.objects.all().count()

@@ -31,6 +31,7 @@
             <thead>
                 <tr>
                 <th scope="col">Venue Name</th>
+                <th scope="col">Edit</th>
                 <th scope="col">Events</th>
                 </tr>
             </thead>
@@ -38,6 +39,10 @@
             {% for venue in venue_list %}
                 <tr>
                     <td><a href="{% url 'events:show-venue' venue.id %}">{{venue}}</a></td>
+                    <td>
+                        <a href="{% url 'events:update-venue' venue.id %}" class="btn btn-outline-secondary btn-sm">Update</a>
+                        <a href="{% url 'events:delete-venue' venue.id %}" class="btn btn-outline-danger btn-sm">Remove</a>
+                    </td>
                     <td><a href="{% url 'events:venue-events' venue.id %}" class="btn btn-secondary">List Events</a></td>
                 </tr>
             {% endfor %}

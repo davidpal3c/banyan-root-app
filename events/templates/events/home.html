@@ -13,21 +13,35 @@
             <h3>Events This Month...</h3>
             {% for event in event_list %}
             <div class="card">
-                <div class="card-header">
-                  {{ event }}
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">Venue: {{ event.venue }}</h5>
-                  <p class="card-text">     
-                    <ul>   
-                        <li>Date: {{ event.event_date }}</li>
-                        <li>Venue URL: {{ event.venue.web }}</li>
-                        <li>Manager: {{ event.manager }}</li>
-                        <li>Description: {{ event.description }}</li>
-                        <br>
-                    </ul>   
-                  </p>      
-                </div>
+              <div class="card-header">
+                {{ event }}
+              </div>
+              <div class="card-body">
+                <div class="flex-box">
+                  <div class="info-img-box">
+                    <div class="info-box">
+                      <h5 class="card-title">Venue: {{ event.venue }}</h5>
+                      <p class="card-text">     
+                        <ul>   
+                            <li>Date: {{ event.event_date }}</li>
+                            <li>Days Until Event: {{ event.days_until }} </li>
+                            <li>Ocurred: {{ event.is_past }} </li>
+                            <li>Venue URL: {{ event.venue.web }}</li>
+                            <li>Manager: {{ event.manager }}</li>
+                            <li>Description: {{ event.description }}</li>
+                            <li>Approve: {{ event.approved }}</li>
+                            <br>
+                        </ul>  
+                      </p>  
+                    </div>  
+                    <div class="img-box">
+      
+                    </div>
+                  </div>
+                        
+                </div>             
+                  
+              </div>
                 {% if user.is_authenticated %}
                   {% if user == event.manager %}
                     <div class="card-footer text-muted">

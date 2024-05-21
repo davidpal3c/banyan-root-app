@@ -14,35 +14,53 @@
           {{ event }}
         </div>
         <div class="card-body">
-          <h5 class="card-title">Venue: {{ event.venue }}</h5>
-          <p class="card-text">     
-            <ul>   
-                <li>Date: {{ event.event_date }}</li>
-                <li>Days Until Event: {{ event.days_until }} </li>
-                <li>Ocurred: {{ event.is_past }} </li>
-                <li>Venue URL: {{ event.venue.web }}</li>
-                <li>Manager: {{ event.manager }}</li>
-                <li>Description: {{ event.description }}</li>
-                <li>Approve: {{ event.approved }}</li>
-                <br>
-            </ul>
-            <ul>
-              <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Confirmed Attendees ({{ attendee_count|get_item:event.id }}):
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                    {% for user in event.attendees.all %}
-                      <li>{{ user }}</li>
-                    {% endfor %}
+          <div class="flex-box">
+            <div class="info-img-box">
+              <div class="info-box">
+                <h5 class="card-title">Venue: {{ event.venue }}</h5>
+                <p class="card-text">     
+                  <ul>   
+                      <li>Date: {{ event.event_date }}</li>
+                      <li>Days Until Event: {{ event.days_until }} </li>
+                      <li>Ocurred: {{ event.is_past }} </li>
+                      <li>Venue URL: {{ event.venue.web }}</li>
+                      <li>Manager: {{ event.manager }}</li>
+                      <li>Description: {{ event.description }}</li>
+                      <li>Approve: {{ event.approved }}</li>
+                      <br>
+                  </ul>  
+                </p>  
+              </div>  
+              <div class="img-box">
+
+              </div>
+            </div>
+            <div class="accordion-box">
+              <ul>
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Confirmed Attendees ({{ attendee_count|get_item:event.id }}):
+                      </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                      {% for user in event.attendees.all %}
+                        <li>{{ user }}</li>
+                      {% endfor %}
+                      </div>
                     </div>
                   </div>
-            </ul>        
-          </p>      
+                </div>
+              </ul>      
+
+            </div>
+
+          </div>
+
+          
+            
         </div>
         {% if user.is_authenticated %}
           {% if user == event.manager %}
