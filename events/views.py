@@ -232,9 +232,14 @@ def venue_events(request, venue_id):
     venue = Venue.objects.get(id=venue_id)
     # Get venue events
     events = venue.event_set.all()           # grab events associated with venue (id)
+    events_list = Event.objects.filter(pk=venue_id)
+
+    print(f"THIS IS THE EVENT LIST LOG: {events_list}")
+
 
     if events:
-        return render(request, 'events/venue_events.html', {"events": events})
+        return render(request, 'events/venue_events.html', 
+                      {"events": events})
     
     else:
         messages.success(request, ("That Venue Has No Events At This Time..."))

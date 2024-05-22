@@ -4,10 +4,71 @@
 {% block content %}
 
 
-<h1>List of Events for: venue-name>{{ venue }}</h1>
-  
 {% for event in events %}
-    <a href="{% url 'events:show-event' event.id %}">{{event}} </a><br>
+
+
+<div>
+
+    <center>
+    <h4>List of Events for: </h4>
+
+    <h1 id="h1-header">{{ event.venue.name }}</h1>
+    </center>
+
+        {% if event.approved %}
+        <div class="card">
+            <div class="card-header">
+            {{ event }}
+            </div>
+            <div class="card-body">
+            <div class="flex-box">
+                <div class="info-img-box">
+                <div class="info-box">
+                    <h5 class="card-title">Location: {{ event.venue }}</h5>
+                    <p class="card-text">     
+                    <ul>   
+                        <li>Date: {{ event.event_date }}</li>
+                        <li>Days Until Event: {{ event.days_until }} </li>
+                        <li>Ocurred: {{ event.is_past }} </li>
+                        <li>Venue URL: {{ event.venue.web }}</li>
+                        <li>Manager: {{ event.manager }}</li>
+                        <li>Description: {{ event.description }}</li>
+                        <li>Approved: {{ event.approved }}</li>
+                        <br>
+                        
+                        <li>
+                            <a href="{% url 'events:show-event' event.id %}">{{event}} </a><br>
+
+                        </li>
+                    </ul>  
+                    </p>  
+                </div>  
+                <div class="img-box">
+                    <img src="" alt="event-image">
+                </div>
+                </div>
+                
+            </div>     
+                
+            </div>
+            {% if user.is_authenticated %}
+            {% if user == event.manager %}
+                <div class="card-footer text-muted">
+                    <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
+                    <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+                    <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+                </div>
+            {% endif %}
+            {% endif %}          
+
+        </div><br><br>
+        {% endif %}   
+
+
+</div>
+
+
 {% endfor %}
+  
 
 {% endblock %}

@@ -15,12 +15,33 @@
 }
 
 
+:root {
+    --bg-color: #D9D9D9;
+    --second-bg-color: #2C2A4A;
+    --third-bg-color: #4F518C;
+    --text-color: #2C2A4A;
+    --second-text-color: #fff;
+    --third-text-color: #00ffdd;
+    --fourth-text-color: #eaf740;
+    --btn-color: #4e2db9;
+    --border: #95859F;
+    --second-btn-color: #ae88c5;
+    /* --border: #44C8B2; */
+    /* --second-btn-color: #44c8c1; */
+}
+
+div h1 {
+    margin: 1.5rem 0 3rem 0;
+}
+
+
+/* EVENT INFO DISPLAY */
 .flex-box {
     display: flex;
     flex-direction: column;
 }
 
-.info-img-box{
+.info-img-box {
     display: flex;
     flex-direction: row;
 }
@@ -44,33 +65,52 @@
     /* margin-left: 80px; */
 }
 
-
-/* .card {
-    border-radius: 45px;
+.card-header {
+    color: var(--btn-color);
+    text-
 }
 
 
-.card-body {
+.event-card-box {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    padding: 40px;
+}
+
+.event-card-box .card { 
+    margin: 0.5rem 2rem 0.5rem 0;
 }
 
 
+/* ADMIN DASHBOARD */
 
-.description-box {
-    overflow-y: auto;
-    overflow-x: auto;
-}
- */
-/* 
-
-.accordion-box {
+.main-container {
     display: flex;
-    flex-direction: row;
-} */
+    flex-direction: column;
+}
+
+.main-container h1 {
+    margin: 1rem 0 3rem 0;
+}
+
+.main-container hr {
+    margin: 2rem 0 2.5rem 0;
+}
+.main-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    margin-bottom: 2rem;
+}
+
+.venue-events-box {
+    width: 74%; /* 70% of the container */
+}
+
+.card-box {
+    width: 22%; /* 30% of the container */
+}
 /* 
-body {
-    background: #dadada;
+.card-box {
+    display: flex;
+    flex-direction: column;
 } */
