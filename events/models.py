@@ -9,7 +9,7 @@ class Venue(models.Model):
     phone           = models.CharField('Contact Phone', max_length=25, blank=True)
     web             = models.URLField('Website Address', blank=True)
     email_address   = models.EmailField('Email', blank=True)
-    owner           = models.IntegerField('Venue Owner', blank=False, default=1)     # associates with user_id
+    owner           = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Venue Owner')     # associates with user_id
     venue_image     = models.ImageField(upload_to="images/", null=True, blank=True)
 
     def __str__(self):

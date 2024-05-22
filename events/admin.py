@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import ClubUser, Event, Venue
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 admin.site.register(ClubUser)
 # admin.site.register(Event)
@@ -12,10 +12,11 @@ admin.site.register(ClubUser)
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'phone')
+    list_display = ('name', 'address', 'phone', 'email_address', 'owner')
     ordering = ('name',)
     search_fields = ('name', 'address', 'email_address')
-    # search_fields = ('__all__')
+    
+
 
 
 @admin.register(Event)

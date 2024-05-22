@@ -198,8 +198,10 @@ def update_event(request, event_id):
 
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
-    venue_owner = User.objects.get(pk=venue.owner)      # venue owner query | non-primary model attribute alternative
 
+    venue_owner = Venue.owner     # venue owner query | non-primary model attribute alternative
+
+    print(venue_owner)
     # Get events for particular venue
     events = venue.event_set.all()  
 
@@ -289,9 +291,9 @@ def add_venue(request):
         form = VenueForm(request.POST, request.FILES)
         if form.is_valid():
             venue = form.save(commit=False)
-            venue.owner = request.user.id        # assigns user id as model attribute
+            venue.owner = request.user      # assigns user id as model attribute
 
-            print(request.FILES)        # debugging log
+            # print(request.FILES)        # debugging log
             venue.save()
             # form.save()
             return HttpResponseRedirect('/add_venue?submitted=True')        # sends submitted variable into get request
@@ -346,8 +348,11 @@ def list_venues(request):
     page = request.GET.get('page')
     venues = p.get_page(page)
     page_range = range(1, venues.paginator.num_pages + 1) 
+    
 
-    return render(request, 'events/venues.html', {'venues': venues,'page_range': page_range})
+    return render(request, 'events/venues.html', 
+                  {'venues': venues,
+                   'page_range': page_range})
     # return render(request, 'events/venues.html', {'venue_list': venue_list, 'venues':venues})
 
 

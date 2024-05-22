@@ -48,8 +48,8 @@ class AdminEventForm(ModelForm):
 class VenueForm(ModelForm):
     class Meta:
         model = Venue   
-        fields = '__all__'
-        # fields = ('name', 'address', 'zip_code', 'phone', 'web', 'email_address', 'venue_image')
+        # fields = '__all__'
+        fields = ('name', 'address', 'zip_code', 'phone', 'web', 'email_address', 'venue_image', 'owner')
         labels = {
             'name': '',
             'address': '',
@@ -66,5 +66,6 @@ class VenueForm(ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'web': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Web Address'}),
             'email_address': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+            'owner': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Venue Owner'}),
             # 'venue_image': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
         }
