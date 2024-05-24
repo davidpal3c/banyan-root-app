@@ -14,12 +14,14 @@
                   <h5 class="card-title">{{ venue }}</h5>
                   <p class="card-text">     
                     <ul>   
-                        <li><span class="label">Address:</span>{{ venue.address }}</li>
-                        <li><span class="label">Zip Code:</span>{{ venue.zip_code }}</li>
-                        <li><span class="label">Contact Phone:</span>{{ venue.phone }}</li>
-                        <li><span class="label">Email Address:</span>{{ venue.email_address }}</li>
-                        <li><span class="label">Venue Website:</span><a href="{{ venue.web }}">{{ venue.web }}</a></li>        <li><span class="label">Contact name:</span> {{ venue.owner.username }} </li>
-                        <li><span class="label">Contact Email:</span> {{ venue.owner.email }} </li>
+                        <li><span class="label">Address:</span> {{ venue.address }}</li>
+                        <li><span class="label">Zip Code:</span> {{ venue.zip_code }}</li>
+                        <li><span class="label">Contact Phone:</span> {{ venue.phone }}</li>
+                        <li><span class="label">Email Address:</span><a href="mailto:{{ venue.email_address }}?subject=inquiries-{{venue}}"> {{ venue.email_address }}</a></li>
+                        <li><span class="label">Venue Website:</span><a href="{{ venue.web }}"> {{ venue.web }}</a></li>        <li><span class="label">Contact name:</span> {{ venue.owner.username }} </li>
+                        {% if user.is_superuser %}
+                            <li><span class="label">Contact Email:</span><a href="mailto:{{ venue.owner.email }}?subject=inquiries-{{venue}}"> {{ venue.owner.email }}</a></li>
+                        {% endif %}
                         <br>
                     </ul>
                   </p>  

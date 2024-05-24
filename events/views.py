@@ -10,12 +10,15 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse    # redirect_lazy change (redirect back to the page itself)
 from .models import Event, Venue
-# Imports User Model from Django
 from django.contrib.auth.models import User
 
 from .forms import VenueForm, EventForm, AdminEventForm
 from django.contrib import messages
 import csv
+
+# search / django-haystack
+from django.db.models import Q
+
 
 # pdf functionality modules
 from django.http import FileResponse
@@ -152,7 +155,25 @@ def search_events(request):
     else: 
         return render(request, 'events/search_events.html', {})
 
-    
+
+def search(request):
+    query = request.GET.get('q', '')
+    if query:
+        # Search in Event model
+        events = Event.objects.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        )
+        # Search in Venue model
+        venues = Venue.objects.filter(
+            Q(name__icontains=query) |
+            Q(address__icontains=query) |
+            Q(zip_code__icontains=query)
+        )
+        return render(request, 'events/search_results.html', {'query': query, 'events': events, 'venues': venues})
+
+
+
 
 
 def search_venues(request):    
@@ -389,6 +410,7 @@ def list_venues(request):
 def all_events(request):
     event_list = Event.objects.all().order_by('event_date')
     
+
     event_with_attendee_count = Event.objects.annotate(num_attendees=Count('attendees'))
     attendee_count = {event.id: event.num_attendees for event in event_with_attendee_count}
 
@@ -399,7 +421,7 @@ def all_events(request):
 
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
-    name = "Moe"
+    name = User
     month = month.capitalize()
 
     # if year is None:
@@ -428,15 +450,17 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
                     event_date__month=month_number,
                     )
 
-    return render(request, 'events/home.html',
-                   {"name": name,
-                    "year": year,
-                    "month": month,
-                    "month_number": month_number,
-                    "cal": cal,
-                    "current_year": current_year,
-                    "time": time,
-                    "event_list": event_list
-                    })
+    context = {"name": name,
+                "year": year,
+                "month": month,
+                "month_number": month_number,
+                "cal": cal,
+                "current_year": current_year,
+                "time": time,
+                "event_list": event_list
+                }   
+
+    return render(request, 'events/home.html', context)
 
 
+    

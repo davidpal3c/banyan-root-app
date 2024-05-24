@@ -23,8 +23,8 @@
                       <li><span class="label">Date:</span> {{ event.event_date }}</li>
                       <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
                       <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
-                      <li><span class="label">Venue Address:</span> {{ event.venue.address }}</li>
-                      <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
+                      <li><span class="label">Venue Address:</span><a href="http://maps.google.com/?q={{ event.venue.address }}">{{ event.venue.address }}</a> </li>
+                      <li><span class="label">Venue URL:</span> <a href="{{ event.venue.web }}">{{ event.venue.web }}</a></li>
                       <li><span class="label">Manager:</span> {{ event.manager }}</li>
                       <li><span class="label">Description:</span> {{ event.description }}</li>
 
@@ -76,8 +76,11 @@
         </div>
 
         <div class="card-footer text-muted"> 
+
           <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
+          {% if not user.is_authenticated %}
           <a href="{% url 'login'%}" class="btn btn-outline-success btn-sm">Join Event</a>  
+          {% endif %}
 
             {% if user.is_authenticated %} 
               {% if user not in event.attendees.all or user.is_superuser %}
@@ -86,11 +89,6 @@
               {% elif user in event.attendees.all %}
                 <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
               {% endif %}
-
-            <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
-              {% if user not in event.attendees.all or user.is_superuser %}
-              <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>
-              
 
             {% elif user in event.attendees.all %}
               <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
@@ -113,14 +111,14 @@
                   </div>
                   <div class="modal-footer">
                     <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
-                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal">Cancel</button>
                   </div>
                 </div>
               </div>
             </div>
 
           {% endif %}
-          {% endif %} 
+
         </div><br><br>
          
 

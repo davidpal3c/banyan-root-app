@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Search Results for "{{ query }}"</h1>
+
+<div class="container">
+    <h2>Events</h2>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Attendees</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.event_date }}</td>
+                    <td>{{ event.attendees.count }}</td>
+                    <td><a href="{% url 'events:show-event' event.id %}" class="btn btn-primary">Show Event</a></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No events found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Venues</h2>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Zip Code</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venue in venues %}
+                <tr>
+                    <td>{{ venue.name }}</td>
+                    <td>{{ venue.address }}</td>
+                    <td>{{ venue.zip_code }}</td>
+                    <td><a href="{% url 'events:show-venue' venue.id %}" class="btn btn-primary">Show Venue</a></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No venues found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
