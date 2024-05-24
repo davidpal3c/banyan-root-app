@@ -23,23 +23,28 @@
                       <h5 class="card-title">Venue: {{ event.venue }}</h5>
                       <p class="card-text">     
                         <ul>   
-                            <li>Date: {{ event.event_date }}</li>
-                            <li>Days Until Event: {{ event.days_until }} </li>
-                            <li>Ocurred: {{ event.is_past }} </li>
-                            <li>Venue URL: {{ event.venue.web }}</li>
-                            <li>Manager: {{ event.manager }}</li>
-                            <li>Description: {{ event.description }}</li>
-                            <li>Approve: {{ event.approved }}</li>
+                            <li><span class="label">Date:</span> {{ event.event_date }}</li>
+                            <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
+                            <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
+                            <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
+                            <li><span class="label">Manager:</span> {{ event.manager }}</li>
+                            <li><span class="label">Description:</span> {{ event.description }}</li>
+                            <li><span class="label">Approved:</span> {{ event.approved }}</li>
                             <br>
                         </ul>  
                       </p>  
                     </div>  
                     <div class="img-box">
-                      
-                    </div>
+                      {% if event.event_image %}
+                        <img src="{{ event.event_image.url }}" alt="event-image">
+                      {% else %}
+                        <!-- Placeholder image or alternative content if no image is available -->
+                        <p>No image available</p>
+                      {% endif %}
+                     </div>
                   </div>
                         
-                </div>             
+                </div>                
                   
               </div>
                 {% if user.is_authenticated %}

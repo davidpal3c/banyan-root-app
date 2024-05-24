@@ -183,9 +183,9 @@ def update_venue(request, venue_id):
 def update_event(request, event_id):
     event = Event.objects.get(pk=event_id)
     if request.user.is_superuser:
-        form = AdminEventForm(request.POST or None, instance=event)
+        form = AdminEventForm(request.POST or None, request.FILES or None, instance=event)
     else:
-        form = EventForm(request.POST or None, instance=event)
+        form = EventForm(request.POST or None, request.FILES or None, instance=event)
 
     if form.is_valid():
         form.save()
@@ -232,9 +232,9 @@ def venue_events(request, venue_id):
     venue = Venue.objects.get(id=venue_id)
     # Get venue events
     events = venue.event_set.all()           # grab events associated with venue (id)
-    events_list = Event.objects.filter(pk=venue_id)
+    # events_list = Event.objects.filter(pk=venue_id)
 
-    print(f"THIS IS THE EVENT LIST LOG: {events_list}")
+    # print(f"THIS IS THE EVENT LIST LOG: {events_list}")
 
 
     if events:
@@ -315,15 +315,16 @@ def add_venue(request):
 
 def add_event(request):
     submitted = False           # default variable for submit
+
     if request.method == "POST":
         if request.user.is_superuser:
-            form = AdminEventForm(request.POST)
+            form = AdminEventForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect('/add_event?submitted=True')        # sends submitted variable into get request
 
         else: 
-            form = EventForm(request.POST)
+            form = EventForm(request.POST, request.FILES)
             if form.is_valid():
                 # form.save()
                 event = form.save(commit=False)
@@ -364,8 +365,8 @@ def list_venues(request):
 
 def all_events(request):
     event_list = Event.objects.all().order_by('event_date')
+    
     event_with_attendee_count = Event.objects.annotate(num_attendees=Count('attendees'))
-
     attendee_count = {event.id: event.num_attendees for event in event_with_attendee_count}
 
     return render(request, 'events/event_list.html', 

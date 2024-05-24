@@ -6,13 +6,14 @@ from .models import Venue, ClubUser, Event
 class EventForm(ModelForm):
     class Meta:
         model = Event   
-        fields = ('name', 'event_date', 'venue', 'attendees', 'description',)
+        fields = ('name', 'event_date', 'venue', 'attendees', 'description','event_image')
         labels = {
             'name': '',
             'event_date': 'YYYY-MM-DD HH:MM',
             'venue': 'Venue',
             'attendees': 'Attendees',
             'description': '',
+            'event_image': '',
         }
         widgets = { 
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Event Name'}),
@@ -20,13 +21,14 @@ class EventForm(ModelForm):
             'venue': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Venue'}),
             'attendees': forms.SelectMultiple(attrs={'class': 'form-control', 'placeholder': 'Attendees'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description'}),
+            
         }
 
 # Admin SuperUser Event Form
 class AdminEventForm(ModelForm):
     class Meta:
         model = Event   
-        fields = ('name', 'event_date', 'venue', 'manager', 'attendees', 'description',)
+        fields = ('name', 'event_date', 'venue', 'manager', 'attendees', 'description', 'event_image')
         labels = {
             'name': '',
             'event_date': 'YYYY-MM-DD HH:MM',
@@ -34,6 +36,7 @@ class AdminEventForm(ModelForm):
             'manager': 'Manager',
             'attendees': 'Attendees',
             'description': '',
+            'event_image': '',
         }
         widgets = { 
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Event Name'}),
@@ -67,5 +70,4 @@ class VenueForm(ModelForm):
             'web': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Web Address'}),
             'email_address': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
             'owner': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Venue Owner'}),
-            # 'venue_image': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
         }

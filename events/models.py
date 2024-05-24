@@ -34,6 +34,7 @@ class Event(models.Model):
     description     = models.TextField(blank=True)
     attendees       = models.ManyToManyField(User, blank=True, related_name='attended_events')  
     approved        = models.BooleanField('Approved', default=False, blank=True, null=True)
+    event_image     = models.ImageField(upload_to="images/event_imgs/", null=True, blank=True)
 
 
     def __str__(self):
