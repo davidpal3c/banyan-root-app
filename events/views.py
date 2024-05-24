@@ -7,6 +7,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse    # redirect_lazy change (redirect back to the page itself)
 from .models import Event, Venue
 # Imports User Model from Django
@@ -101,6 +102,28 @@ def venue_text(request):
 
     response.writelines(venue_catalog)
     return response 
+
+
+@login_required
+def leave_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    event.attendees.remove(request.user)
+    event_name = event.name
+
+    messages.success(request, (f"You have Unregistered from the '{event_name}' event..."))
+    return redirect('events:show-event', event_id=event.id)
+
+
+
+
+@login_required
+def join_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    event.attendees.add(request.user)
+    
+    messages.success(request, ("You have Registered Successfully for this event..."))
+
+    return redirect('events:show-event', event_id=event.id)
 
 
 

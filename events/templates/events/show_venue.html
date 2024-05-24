@@ -3,33 +3,37 @@
 {% block content %}
 
 
-<div class="card">
-    <div class="card-header">
-      Venue
+    <div class="card">
+        <div class="card-header">
+        <h5>Venue</h5>
+        </div>
+        <div class="card-body">
+            <div class="flex-box">
+              <div class="info-img-box">
+                <div class="info-box">
+                  <h5 class="card-title">{{ venue }}</h5>
+                  <p class="card-text">     
+                    <ul>   
+                        <li><span class="label">Address:</span>{{ venue.address }}</li>
+                        <li><span class="label">Zip Code:</span>{{ venue.zip_code }}</li>
+                        <li><span class="label">Contact Phone:</span>{{ venue.phone }}</li>
+                        <li><span class="label">Email Address:</span>{{ venue.email_address }}</li>
+                        <li><span class="label">Venue Website:</span><a href="{{ venue.web }}">{{ venue.web }}</a></li>        <li><span class="label">Contact name:</span> {{ venue.owner.username }} </li>
+                        <li><span class="label">Contact Email:</span> {{ venue.owner.email }} </li>
+                        <br>
+                    </ul>
+                  </p>  
+                </div>  
+                <div class="img-box">
+                    {% if venue.venue_image %}
+                    <img src="{{ venue.venue_image.url }}" width=500>
+                    {% endif %}
+                </div>
+              </div>
+            </div>        
+        </div>
     </div>
-    <div class="card-body">
-        <h5 class="card-title">{{ venue }}</h5>
-        <p class="card-text">
-            <ul>
 
-        <li>{{ venue.address }}</li>
-        <li>{{ venue.zip_code }}</li>
-        <li>{{ venue.phone }}</li>
-        <li>{{ venue.email_address }}</li>
-        <li><a href="{{ venue.web }}">{{ venue.web }}</a></li>
-        <li>Owner: {{ venue.owner.username }} </li>
-        <li>Owner's Email: {{ venue.owner.email }} </li>
-
-        </ul>
-        <br>
-
-        {% if venue.venue_image %}
-        <img src="{{ venue.venue_image.url }}" width=500>
-        {% endif %}
-
-
-
-        </p>
         <br/>
         <h3>Events At This Venue...</h3>
 
@@ -40,7 +44,7 @@
                         <div class="card-header">
                             {{ event.name }}
                         </div>
-                            <img src="..." class="card-img-top" alt="event-img">
+                            <img src="{{ event.event_image.url }}" class="card-img-top" alt="event-img">
                         <div class="card-body">
                             <h5 class="card-title">{{ event }}</h5>
                             <p class="card-text">{{ event.description }}</p>
@@ -48,21 +52,15 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"> <a href="{% url 'events:show-event' event.id %}" class="btn btn-primary btn-sm">More Info.</a></li>
                         </ul>
-
                     </div>
                 {% endfor %}
-            </div>
-
-
-
+            </div>          
         {% else %}
             No Events Scheduled At This Time.
         {% endif %}
-        <br>
+            <br>  
 
-    </div>
 
-</div>
 
 
 

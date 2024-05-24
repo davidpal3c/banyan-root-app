@@ -11,7 +11,7 @@
         Your Event Was Submitted Successfully!
     {% else %}
         
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             {{ form.as_p }}

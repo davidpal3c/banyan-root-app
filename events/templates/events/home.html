@@ -2,70 +2,82 @@
 
 {% block content %}
 
-        <h1>Hello {{ name }} Events for {{ month }} {{ year }} </h1>
-        <br>
-        As of {{ time }}
-        <br>
-        {{ cal | safe }}
-        <br><br><br><br>
 
-        {% if event_list %}
-            <h3>Events This Month...</h3>
-            {% for event in event_list %}
-            <div class="card">
-              <div class="card-header">
-                {{ event }}
-              </div>
-              <div class="card-body">
-                <div class="flex-box">
-                  <div class="info-img-box">
-                    <div class="info-box">
-                      <h5 class="card-title">Venue: {{ event.venue }}</h5>
-                      <p class="card-text">     
-                        <ul>   
-                            <li><span class="label">Date:</span> {{ event.event_date }}</li>
-                            <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
-                            <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
-                            <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
-                            <li><span class="label">Manager:</span> {{ event.manager }}</li>
-                            <li><span class="label">Description:</span> {{ event.description }}</li>
-                            <li><span class="label">Approved:</span> {{ event.approved }}</li>
-                            <br>
-                        </ul>  
-                      </p>  
-                    </div>  
-                    <div class="img-box">
-                      {% if event.event_image %}
-                        <img src="{{ event.event_image.url }}" alt="event-image">
-                      {% else %}
-                        <!-- Placeholder image or alternative content if no image is available -->
-                        <p>No image available</p>
-                      {% endif %}
-                     </div>
-                  </div>
-                        
-                </div>                
-                  
-              </div>
-                {% if user.is_authenticated %}
-                  {% if user == event.manager %}
-                    <div class="card-footer text-muted">
-                        <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
-                        <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
-                    </div>
-                  {% endif %}
-                {% endif %}          
       
-              </div><br><br>
-            {% endfor %}
-            <br><br>
-        {% else %}
-            Sorry... there are no events this month
-        {% endif %}
+<div class="main-header-box">
+  <div class="welcome-box">
+    <h1>Hello {{ name }}!<h1>
+    <h2> Events for {{ month }} {{ year }} </h2>
+  </div>
+  <div class="flex-calendar-box">
+    <br>
+    As of {{ time }}
+    <br>
+    {{ cal | safe }}
+    <br><br><br><br>
+  </div>
+</div>
 
-        <br><br><br>
-    <center>
-        Copyright (c) {{ current_year }}
-    </center>
+
+
+      {% if event_list %}
+          <h3>Events This Month...</h3>
+          <br>
+          {% for event in event_list %}
+          <div class="card">
+            <div class="card-header">
+              {{ event }}
+            </div>
+            <div class="card-body">
+              <div class="flex-box">
+                <div class="info-img-box">
+                  <div class="info-box">
+                    <h5 class="card-title">Venue: {{ event.venue }}</h5>
+                    <p class="card-text">     
+                      <ul>   
+                          <li><span class="label">Date:</span> {{ event.event_date }}</li>
+                          <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
+                          <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
+                          <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
+                          <li><span class="label">Manager:</span> {{ event.manager }}</li>
+                          <li><span class="label">Description:</span> {{ event.description }}</li>
+                          <li><span class="label">Approved:</span> {{ event.approved }}</li>
+                          <br>
+                      </ul>  
+                    </p>  
+                  </div>  
+                  <div class="img-box">
+                    {% if event.event_image %}
+                      <img src="{{ event.event_image.url }}" alt="event-image">
+                    {% else %}
+                      <!-- Placeholder image or alternative content if no image is available -->
+                      <p>No image available</p>
+                    {% endif %}
+                    </div>
+                </div>
+                      
+              </div>                
+                
+            </div>
+              {% if user.is_authenticated %}
+                {% if user == event.manager %}
+                  <div class="card-footer text-muted">
+                      <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+                      <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+                  </div>
+                {% endif %}
+              {% endif %}          
+    
+            </div><br><br>
+          {% endfor %}
+          <br><br>
+      {% else %}
+          Sorry... there are no events this month
+      {% endif %}
+
+      <br><br><br>
+  <center>
+      Copyright (c) {{ current_year }}
+  </center>
 
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% if user.is_authenticated %}
 
-    {% if user == event.manager %}
+    {% if user == event.manager or user.is_superuser %}
         <h1>Update Event...</h1><br>
         <br>
         <form action="" method="POST" enctype="multipart/form-data">
