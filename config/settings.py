@@ -112,6 +112,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email configuration
+
+EMAIL_BACKEND = os.getenv('EBACKEND')
+EMAIL_HOST = os.getenv('EHOST')
+EMAIL_HOST_USER = os.getenv('EHOSTUSER')
+EMAIL_HOST_PASSWORD = os.getenv('EHOSTPASS')
+EMAIL_PORT = int(os.getenv('EPORT'))  
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULTFROMEMAIL')
+
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

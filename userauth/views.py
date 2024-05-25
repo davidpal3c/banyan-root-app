@@ -3,6 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 # from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterUserForm, ResetPasswordForm
+from django.conf import settings
+from django.core.mail import send_mail
+
+
 
 def login_user(request):
 	if request.method == "POST":
@@ -37,6 +41,15 @@ def register_user(request):
 			password = form.cleaned_data['password1']
 			user = authenticate(username=username, password=password)
 			login(request, user)
+
+			recipient_email = [request.POST.get('email')]
+
+			subject = 'Welcome to EventHub'
+			message = f'Hi {username}, thank you for registering in EventHub.ca'
+			email_from = settings.EMAIL_HOST_USER
+			recipient_list = [user.email]
+			send_mail(subject, message, email_from, recipient_email, fail_silently=True)
+
 			messages.success(request, ("Registration Successful!"))
 			return redirect('events:list-events')
 		
