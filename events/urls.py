@@ -6,7 +6,7 @@ app_name = "events"
 
 urlpatterns = [
     path('<int:year>/<str:month>/', views.home, name='home'),
-    # path('', views.home, name='home_no_params'),
+    path('', views.redirect_to_home, name='redirect-to-home'),
     path('events/', views.all_events, name='list-events'),
     path('venues/', views.list_venues, name='list-venues'),
     path('add_event/', views.add_event, name='add-event'),

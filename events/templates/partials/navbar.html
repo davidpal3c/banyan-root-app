@@ -1,8 +1,10 @@
 
+{% load static %}
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="{% url 'events:home' '2024' 'May' %}" class="navbar-brand">Event Buzz</a>
+            <a href="{% url 'events:home' year=year month=month %}"><img src="{% static '/img/eventhub-logo-png.png' %}" alt="eventhub-logo"></a>
+            <a href="{% url 'events:home' year=year month=month %}" class="navbar-brand">Event Buzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-lable="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,18 +40,7 @@
                         </ul>
                     </li>
 
-                    <!-- Download file dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Downloads
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'events:venue-text' %}">Venue Text File</a></li>
-                        <!-- <div class="dropdown-divider"></div> -->
-                        <li><a class="dropdown-item" href="{% url 'events:venue-csv' %}">Venue CSV File</a></li>
-                        <li><a class="dropdown-item" href="{% url 'events:venue-pdf' %}">Venue PDF File</a></li>
-                        </ul>
-                    </li>
+
 
                     <!-- Authentication access -->
                     {% if user.is_authenticated %}

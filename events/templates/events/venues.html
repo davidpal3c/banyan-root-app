@@ -2,8 +2,16 @@
 
 {% block content %}
 
-
-    <h1>Venues</h1>
+    <div class="header-box">
+        <div>
+            <h1>Venues</h1>
+        </div>
+        <div class="file-download-box">
+            <a href="{% url 'events:venue-csv' %}"><i class="bi bi-filetype-csv"></i></a>
+            <a href="{% url 'events:venue-pdf' %}"><i class="bi bi-filetype-pdf"></i></a>
+        </div>
+    </div>
+    
        
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for venue in venues %}

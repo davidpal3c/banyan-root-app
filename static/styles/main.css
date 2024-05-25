@@ -31,6 +31,8 @@
 }
 
 
+
+
 html, body {
     height: 100%;
     margin: 0;
@@ -38,6 +40,13 @@ html, body {
 
 
 /* NAVBAR */
+
+.container-fluid img {
+    width: 2rem;
+    height: auto;
+    margin: 0 0.8rem 0 0.5rem;
+}
+
 
 /* nav.custom-navbar {
     background-color: var(--second-bg-color); 
@@ -180,7 +189,7 @@ div h1 {
 }
 
 .main-container h1 {
-    margin: 1rem 0 3rem 0;
+    margin: 1rem 0 2rem 0;
 }
 
 .main-container hr {
@@ -205,6 +214,62 @@ div h1 {
     display: flex;
     flex-direction: column;
 } */
+
+
+/* VENUES  */
+
+.header-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1.2rem 0 1.2rem 0;
+}
+
+.header-box h1 {
+    margin: 1rem 0 2rem 0;
+}
+
+.file-download-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .35rem;
+    background-color: #bcbcbc;
+    box-shadow: 0 0 1rem #c7c7c8;
+    height: 3rem;
+    width: 5rem;
+    transition: opacity 0.9s ease-out, visibility 0.9s ease-out;
+
+}
+
+.file-download-box i{
+    font-size: 1.5rem;
+    margin: 0.3rem;
+    color: var(--second-bg-color);
+    opacity: 1;
+    transition: opacity 0.5s ease-out, visibility 0.9s ease-out;
+}
+
+
+.file-download-box:hover {
+    background-color: #dddddd;
+    transition: .9s ease;
+}
+
+.file-download-box .bi-filetype-csv:hover {
+    color: #02a51e;
+    cursor: pointer;
+    transition: .5s ease;
+}
+
+.file-download-box .bi-filetype-pdf:hover {
+    color: #fb402b;
+    cursor: pointer;
+    transition: .5s ease;
+}
+
+
 
 
 /* FOOTER */
@@ -257,6 +322,7 @@ div h1 {
 }
 
 
+
 #login-form-bx {
     width: 45%;
     height: 26rem;
@@ -280,6 +346,26 @@ div h1 {
     padding: 1rem;
     box-shadow: 0 0 1rem var(--second-btn-color);
 }
+
+
+@media (max-width: 460px) {
+    #login-form-bx,
+    .register-main #register-form-bx {
+        width:  380px;
+        max-width: 380px;
+    }
+}
+
+
+@media (min-width: 900px) {
+    #login-form-bx,
+    .register-main #register-form-bx {
+        width:  380px;
+        max-width: 380px;
+    }
+}
+
+
 
 #login-form-bx form {
     margin: 1rem;

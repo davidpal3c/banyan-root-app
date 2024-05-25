@@ -5,6 +5,7 @@ from django.db.models import Count
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from django.utils import timezone
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -420,47 +421,49 @@ def all_events(request):
 
 
 
-def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
-    name = User
-    month = month.capitalize()
+from django.shortcuts import render
+from django.utils import timezone
+import calendar
+from calendar import HTMLCalendar
+from.models import Event
 
-    # if year is None:
-    #     year = datetime.now().year
-    # if month is None:
-    #     month = datetime.now().strftime('%B').capitalize()
+def home(request, year=None, month=None):
+    # Default to the current year and month if none are provided
+    if year is None:
+        year = timezone.now().year
+    if month is None:
+        month = timezone.now().strftime('%B')
 
+    # Convert month name to month number
+    month_number = list(calendar.month_name).index(month.capitalize())
 
-    # convert month from name to number
-    month_number = int(list(calendar.month_name).index(month))
-
-    # create calendar
+    # Create calendar
     cal = HTMLCalendar().formatmonth(year, month_number)
 
-    # get current year
-    now = datetime.now()
-    current_year = now.year 
+    # Get current year and time
+    current_datetime = timezone.now()
+    current_year = current_datetime.year
+    current_time = current_datetime.strftime('%I:%M: %p')
 
-    # get current time
-    time = now.strftime('%I:%M: %p')
+    # Query events model for the specified date
+    event_list = Event.objects.filter(event_date__year=year, event_date__month=month_number)
 
-
-    # query events model for particular date
-    event_list = Event.objects.filter(
-                    event_date__year=year,
-                    event_date__month=month_number,
-                    )
-
-    context = {"name": name,
-                "year": year,
-                "month": month,
-                "month_number": month_number,
-                "cal": cal,
-                "current_year": current_year,
-                "time": time,
-                "event_list": event_list
-                }   
+    context = {
+        "year": year,
+        "month": month,
+        "month_number": month_number,
+        "cal": cal,
+        "current_year": current_year,
+        "time": current_time,
+        "event_list": event_list
+    }
 
     return render(request, 'events/home.html', context)
 
 
-    
+
+
+def redirect_to_home(request):
+    current_month = timezone.now().strftime('%B')
+    current_year = timezone.now().year
+    return redirect('events:home', year=current_year, month=current_month)
