@@ -394,7 +394,7 @@ def list_venues(request):
     # venue_list = Venue.objects.all().order_by('name')       # order by random ='?'
  
     # pagination setup
-    p = Paginator(Venue.objects.all(), 3)
+    p = Paginator(Venue.objects.all(), 4)
     page = request.GET.get('page')
     venues = p.get_page(page)
     page_range = range(1, venues.paginator.num_pages + 1) 

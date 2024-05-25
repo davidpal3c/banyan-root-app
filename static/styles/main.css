@@ -59,6 +59,41 @@ div h1 {
 }
 
 
+.main-header-box {
+    background-color: var(--border);
+    border: 1px solid grey;
+    border-radius: .35rem;
+    padding: 2rem;
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: row; */
+}
+
+.container {
+    box-sizing: border-box;
+}
+
+.container #welcome-span {
+    color: var(--bg-color);
+    font-weight: 500;
+}
+
+
+/* CALENDAR */
+
+.flex-calendar-box {
+    background-color: var(--second-bg-color);
+    border: 1px solid black;
+    border-radius: .35rem;
+    color: var(--bg-color);
+    height: 18rem;
+    width: 10;
+    padding: 1.7rem;
+    margin-left: 4rem;
+    margin-right: 2rem;
+}
+
+
 
 
 /* EVENT INFO DISPLAY */
@@ -76,7 +111,8 @@ div h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 55%;
+    width: 52%;
+    margin-right: 3rem;
 }
 
 
@@ -100,8 +136,8 @@ div h1 {
 }
 
 .card-header {
-    color: var(--second-bg-color);
-    text-
+    color: var(--third-bg-color);
+    font-weight: 600;
 }
 
 .label {
@@ -125,6 +161,15 @@ div h1 {
 .leave-btn {
     color: rgb(248, 224, 44);
 }
+
+
+.card-footer .btn-bx {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 
 
 /* ADMIN DASHBOARD */
@@ -187,7 +232,96 @@ div h1 {
 
 /* LOGIN & REGISTER FORMS */
 
-
-.form-1 {
-    width: 50%;
+.container #login-background {
+    width: 100%;
+    height: 35rem;
+    background-image: url('../img/photo-1563245091-eb11b28ffff4.png');
+    background-repeat: no-repeat;  
+    background-size: cover;
+    border-radius: .25rem;
+    display: flex;
+    flex-direction: row-reverse;
 }
+
+.container .register-main {
+    width: 100%;
+    height: 75rem;
+    background-image: url('../img/andreas-ronningen-S2YssLw97l4-unsplash.jpg'); 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    border-radius: .25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#login-form-bx {
+    width: 45%;
+    height: 26rem;
+    /* background-color: #8d7fc3;  */
+    background: rgba(0, 0, 0, .1);  
+    /* backdrop-filter: blur(80px);   */
+    border-radius: .35rem;
+    margin-right: 4.3rem;
+    margin-top: 4.6rem;
+    padding: 1rem;
+    box-shadow: 0 0 2rem var(--border);
+}
+
+.register-main #register-form-bx {
+    width: 45%;
+    height: 66rem;
+    background: rgba(0, 0, 0, .1);  
+    border-radius: .35rem;
+    /* margin-right: 4.3rem; */
+    margin-top: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0 1rem var(--second-btn-color);
+}
+
+#login-form-bx form {
+    margin: 1rem;
+    height: 18.4rem;
+    border-radius: .35rem;
+}
+
+
+#register-form-bx .reg-form,
+#register-form-bx .reg-form label,
+#login-form-bx form label,
+#login-form-bx form h1,
+#register-form-bx h1 {
+    color: white;
+}
+
+#register-form-bx form .form-control,
+#login-form-bx form .form-control {
+    border-radius: .35rem;
+    background: rgba(0, 0, 0, .5);    
+    color: var(--third-text-color);
+}
+
+/* #login-form-bx form .submit {
+    color: var(--fourth-text-color);
+} */
+
+
+
+
+
+
+
+
+
+
+/* IMAGES */
+
+.card .card-img-top {
+    width: 100%; 
+    height: 240px; 
+    object-fit: cover;
+}
+
+.card-body 

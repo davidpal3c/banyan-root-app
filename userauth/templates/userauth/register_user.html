@@ -12,21 +12,22 @@
     
 
     {% endif %}
-    <div class="form-1">
-        <div class="shadow p-4 mb-5 sm-body rounded">
-            <h1>Register</h1>
-            <br/>
+    <div class="register-main">
+        <div class="form-1" id="register-form-bx">
+            <div class="shadow p-4 mb-5 sm-body rounded">
+                <h1>Register</h1>
+                <br/>
 
-            <form action="{% url 'register-user' %}" method=POST>
-                {% csrf_token %}
-                {{ form.as_p }}
+                <form action="{% url 'register-user' %}" method=POST class="reg-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
+                    <br/><br/>	
+                    <input type="submit" value="Submit" class="btn btn-secondary">
 
-                <br/><br/>	
-                <input type="submit" value="Submit" class="btn btn-secondary">
-
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
+    </div>    
 
 {% endblock %}

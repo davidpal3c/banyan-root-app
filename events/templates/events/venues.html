@@ -4,25 +4,33 @@
 
 
     <h1>Venues</h1>
-    
-    <br>
-    <table class="table table-striped table-hover table-bordered">
+       
+    <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for venue in venues %}
-        <tr>
-            <td>
-                <a href="{% url 'events:show-venue' venue.id %}">{{ venue }}</a> 
-            </td>
-            {% if user.is_authenticated %}
-                {% if user == venue_owner %}
-                    <td align="right">
-                        <a href="{% url 'events:update-venue' venue.id %}" class="btn btn-outline-secondary btn-sm">Update Venue</a>
-                        <a href="{% url 'events:delete-venue' venue.id %}" class="btn btn-outline-danger btn-sm">Delete Venue</a>
-                    </td>
+        <div class="col">
+          <div class="card">
+            <a href="{% url 'events:show-venue' venue.id %}"><img src="{{ venue.venue_image.url }}" class="card-img-top" width=500 alt="venue-image"></a>
+            <div class="card-body">
+              <h5 class="card-title">{{venue}}</h5>
+              <p class="card-text">
+                {{ venue.address }} {{ venue.city_state }}
+              </p>
+              <a href="{% url 'events:show-venue' venue.id %}" class="btn btn-outline-primary btn-sm">Read More</a>
+                {% if user.is_authenticated %}
+                    {% if user == venue_owner %}
+                        <td align="right">
+                            <a href="{% url 'events:update-venue' venue.id %}" class="btn btn-outline-secondary btn-sm">Update Venue</a>
+                            <a href="{% url 'events:delete-venue' venue.id %}" class="btn btn-outline-danger btn-sm">Delete Venue</a>
+                        </td>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        </tr>   
+            </div>
+          </div>
+        </div>
         {% endfor %}
-    </table>
+    </div>
+
+    <!-- Pagination -->
         <!-- {{ venues }}<br> -->
         <!-- Has Previous: {{ venues.has_previous }}<br>
         Has Next: {{ venues.has_next }}<br>
@@ -47,5 +55,6 @@
             {% endif %}
         </ul>
     </nav>
+
 
 {% endblock %} 

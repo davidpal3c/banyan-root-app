@@ -52,10 +52,12 @@ class VenueForm(ModelForm):
     class Meta:
         model = Venue   
         # fields = '__all__'
-        fields = ('name', 'address', 'zip_code', 'phone', 'web', 'email_address', 'venue_image', 'owner')
+        fields = ('name', 'address', 'city_state', 'country', 'zip_code', 'phone', 'web', 'email_address', 'venue_image', 'owner')
         labels = {
             'name': '',
             'address': '',
+            'city_state':'',
+            'country':'',
             'zip_code': '',
             'phone': '',
             'web': '',
@@ -65,6 +67,8 @@ class VenueForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Venue Name'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+            'city_state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City/State'}),
+            'country': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City/State'}),
             'zip_code': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Zip Code'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'web': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Web Address'}),

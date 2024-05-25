@@ -12,9 +12,9 @@ admin.site.register(ClubUser)
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
-    list_display = ('name', 'address', 'email_address', 'owner')
+    list_display = ('name', 'address', 'city_state', 'country', 'email_address', 'owner')
     ordering = ('name',)
-    search_fields = ('name', 'address', 'email_address')
+    search_fields = ('name', 'address', 'city_state', 'country', 'email_address')
     
 
 

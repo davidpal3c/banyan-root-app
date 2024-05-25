@@ -7,33 +7,42 @@
 <div class="main-header-box">
   <div class="welcome-box">
 
-    {% if user.is_authenticated %}
-      <h1>Hello {{ user }}!<h1>
-    {% else %}
-      <h1>Welcome !</h1>
-    {% endif %}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        {% if user.is_authenticated %}
+          <h1 class="display-4">Hello {{ user }}!</h1>
+        {% else %}
+        <h1 class="display-4">Welcome !</h1>
+        {% endif %}
+        
+        <p class="lead">Welcome to <span id="welcome-span">EventHub</span>, an app show-casing basic event-management 
+          features, authentication & OAuth, CRUD, permissions, admin dashboard, and more. Dive in!</p>
+      </div>
+    </div>  
+
+    </div>
+    <div class="flex-calendar-box">
+      <br>
+      As of {{ time }}
+      <br>
+      <br>
+      {{ cal | safe }}
+    </div>
+  </div>
+ 
 
 
-    <h2> Events for {{ month }} {{ year }} </h2>
-  </div>
-  <div class="flex-calendar-box">
-    <br>
-    As of {{ time }}
-    <br>
-    {{ cal | safe }}
-    <br><br><br><br>
-  </div>
-</div>
 
 
 
       {% if event_list %}
-          <h3>Events This Month...</h3>
-          <br>
+          <br><br><br>
+          <h2> Events for {{ month }} {{ year }} </h2>
+          <br><br>
           {% for event in event_list %}
           <div class="card">
-            <div class="card-header">
-              {{ event }}
+            <div class="card-header" id="card-header-events">
+              <h3>{{ event }}</h3>
             </div>
             <div class="card-body">
               <div class="flex-box">
@@ -43,12 +52,9 @@
                     <p class="card-text">     
                       <ul>   
                           <li><span class="label">Date:</span> {{ event.event_date }}</li>
-                          <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
-                          <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
-                          <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
-                          <li><span class="label">Manager:</span> {{ event.manager }}</li>
-                          <li><span class="label">Description:</span> {{ event.description }}</li>
-                          <li><span class="label">Approved:</span> {{ event.approved }}</li>
+                          <li><span class="label">Days Until Event:</span> {{ event.days_until }} ( {{ event.is_past }} )</li>
+                          <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>          
+                          <li><span class="label">Description:</span> {{ event.description }}</li>            
                           <br>
                       </ul>  
                     </p>  
@@ -66,14 +72,22 @@
               </div>                
                 
             </div>
-              {% if user.is_authenticated %}
-                {% if user == event.manager %}
-                  <div class="card-footer text-muted">
+              <div class="card-footer text-muted">
+                {% if not user.is_authenticated %}
+                  <a href="{% url 'login'%}" class="btn btn-outline-success btn-sm">Join Event</a>  
+                {% endif %}
+
+                <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
+
+                {% if user.is_authenticated %}
+                  {% if user == event.manager %}
+                
                       <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
                       <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
-                  </div>
-                {% endif %}
-              {% endif %}          
+                    
+                  {% endif %}
+                {% endif %} 
+              </div>         
     
             </div><br><br>
           {% endfor %}
@@ -83,5 +97,5 @@
       {% endif %}
 
       <br><br><br>
-
+</div>
 {% endblock %}

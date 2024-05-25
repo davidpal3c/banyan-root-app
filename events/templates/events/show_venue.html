@@ -15,6 +15,8 @@
                   <p class="card-text">     
                     <ul>   
                         <li><span class="label">Address:</span> {{ venue.address }}</li>
+                        <li><span class="label">City/State:</span> {{ venue.city_state }}</li>
+                        <li><span class="label">Country:</span> {{ venue.country }}</li>
                         <li><span class="label">Zip Code:</span> {{ venue.zip_code }}</li>
                         <li><span class="label">Contact Phone:</span> {{ venue.phone }}</li>
                         <li><span class="label">Email Address:</span><a href="mailto:{{ venue.email_address }}?subject=inquiries-{{venue}}"> {{ venue.email_address }}</a></li>
@@ -28,7 +30,7 @@
                 </div>  
                 <div class="img-box">
                     {% if venue.venue_image %}
-                    <img src="{{ venue.venue_image.url }}" width=500>
+                    <img src="{{ venue.venue_image.url }}" alt="venue-image" width=500>
                     {% endif %}
                 </div>
               </div>

@@ -13,7 +13,6 @@ urlpatterns = [
     path('add_venue/', views.add_venue, name='add-venue'),    # path converters: int, str, path (whole urls/), slugs (hyphen-and_unerscores), UUID
     path('show_venue/<venue_id>/', views.show_venue, name='show-venue'),
     path('venue_events/<venue_id>', views.venue_events, name='venue-events'),
-    path('search_venues/', views.search_venues, name='search-venues'),
     path('search/', views.search, name='search'),
     path('update_venue/<venue_id>', views.update_venue, name='update-venue'),
     path('update_event/<event_id>', views.update_event, name='update-event'),
