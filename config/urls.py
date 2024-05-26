@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('events.urls')),   
     path('userauth/', include('django.contrib.auth.urls')),    # built-in django auth
     path('userauth/', include('userauth.urls')),   
+    path('accounts/', include('allauth.urls')),   
 ]
 
 
