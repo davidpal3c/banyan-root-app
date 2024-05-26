@@ -3,15 +3,15 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="{% url 'events:home' year=year month=month %}"><img src="{% static '/img/eventhub-logo-png.png' %}" alt="eventhub-logo"></a>
-            <a href="{% url 'events:home' year=year month=month %}" class="navbar-brand">Event Buzz</a>
+            <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}"><img src="{% static '/img/eventhub-logo-png.png' %}" alt="eventhub-logo"></a>
+            <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}" class="navbar-brand">Event Buzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-lable="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-time">
-                        <a href="{% url 'events:home' '2024' 'May' %}" class="nav-link">Calendar</a>
+                        <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}" class="nav-link">Calendar</a>
                     </li>
 
                     <li class="nav-item dropdown">

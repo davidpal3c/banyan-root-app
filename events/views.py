@@ -421,11 +421,7 @@ def all_events(request):
 
 
 
-from django.shortcuts import render
-from django.utils import timezone
-import calendar
-from calendar import HTMLCalendar
-from.models import Event
+
 
 def home(request, year=None, month=None):
     # Default to the current year and month if none are provided
@@ -441,9 +437,9 @@ def home(request, year=None, month=None):
     cal = HTMLCalendar().formatmonth(year, month_number)
 
     # Get current year and time
-    current_datetime = timezone.now()
-    current_year = current_datetime.year
-    current_time = current_datetime.strftime('%I:%M: %p')
+    # current_datetime = timezone.now()
+    current_year = timezone.now().year
+    current_time = timezone.now().strftime('%I:%M: %p')
 
     # Query events model for the specified date
     event_list = Event.objects.filter(event_date__year=year, event_date__month=month_number)
@@ -459,7 +455,6 @@ def home(request, year=None, month=None):
     }
 
     return render(request, 'events/home.html', context)
-
 
 
 
