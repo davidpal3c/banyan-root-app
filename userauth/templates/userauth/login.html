@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 	
-	
+{% load socialaccount %}
+
 <br/>
 <div class="login-main" id="login-background">
     <div class="form-1" id="login-form-bx">
@@ -20,9 +20,17 @@
                     <label for="password-input" class="form-label">Password</label>
                     <input type="password" class="form-control" name="password">
                 </div>
-                    
-                <input type="submit" value="Submit" class="btn btn-success submit">
-                <a href="{% url 'reset-password' %}" class="btn btn-secondary">Forgot your password?</a>
+                <div class="mb-3">
+                    <a href="{% url 'reset-password' %}">Forgot your password?</a>
+                </div>
+                <div class="sign-in">
+                    <input type="submit" value="Submit" class="btn btn-secondary submit">
+                    <div class="oauth-box">
+                        <div class="oauth-login-btn">
+                            <a href="{% provider_login_url 'google' %}"  class="btn btn-primary"><i class="bi bi-google"> Sign in with Google</i></a>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>      
 	</div>	

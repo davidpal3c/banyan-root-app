@@ -63,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ACCOUNT_ADAPTER = 'userauth.adapter.CustomAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'userauth.adapter.CustomSocialAccountAdapter'
+
 
 ROOT_URLCONF = 'config.urls'
 

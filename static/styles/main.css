@@ -355,7 +355,7 @@ div h1 {
 
 #login-form-bx {
     width: 45%;
-    height: 26rem;
+    height: 28rem;
     /* background-color: #8d7fc3;  */
     background: rgba(0, 0, 0, .1);  
     /* backdrop-filter: blur(80px);   */
@@ -418,6 +418,45 @@ div h1 {
     background: rgba(0, 0, 0, .5);    
     color: var(--third-text-color);
 }
+
+#login-form-bx form a {
+    color: var(--bg-color);
+}
+
+.sign-in {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* google login */
+
+.user-auth-box hr {
+    margin-top: 0.4rem;
+    border: 0.05rem solid var(--border);
+}
+
+.oauth-login-btn button {
+    border-radius: 10%;
+    padding: 0.4rem;
+    background-color: #4285F4;
+    color: var(--second-text-color);
+    cursor: pointer;
+    transition: 0.7s ease;
+}
+
+.oauth-login-btn button:hover {
+    border-radius: 10%;
+    padding: 0.4rem;
+    background-color: var(--second-text-color);
+    color: #4285F4;
+    margin-top: 0.6rem;
+    cursor: pointer;
+    transition: 0.7s ease;
+}
+
+
+
 
 /* #login-form-bx form .submit {
     color: var(--fourth-text-color);
