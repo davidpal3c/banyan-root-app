@@ -9,18 +9,34 @@
                 <li class="nav-item">
                     <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}" class="nav-link px-2 text-muted">Home</a>
                 </li>
+                <!-- Button trigger modal -->
                 <li class="nav-item">
-                    <a href="" class="nav-link px-2 text-muted">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link px-2 text-muted">Donate</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link px-2 text-muted">FAQs</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link px-2 text-muted">About</a>
+                    <a href="#" class="nav-link px-2 text-muted" data-bs-toggle="modal" data-bs-target="#staticBackdrop">About</a>
                 </li> 
+                <li>
+                    <a href="https://github.com/davidpal3c" class="nav-link px-2 text-muted"><i class="bi bi-github"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/david-palacios-9077a2223/" class="nav-link px-2 text-muted"><i class="bi bi-linkedin"></i></a>
+                </li>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">About EventHub</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        EventHub is an event-managing web application, demonstrating basic event-management features, authentication & OAuth, CRUD, permissions, admin dashboard, and file downloads. <br><br> Developed by David Palacios using programming languages and technologies and frameworks like as Python, Django, PostgreSQL, Git, HTML & CSS, JavaScript, and Bootstrap5. 
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Ok!</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
             </ul>
             <p class="text-center text-muted">@Copyright <a href="mailto:davidpal3c@gmail.com?subject=eventHub-visitor inquiry">David P. (JaminPanda)</a></p>
         </footer>

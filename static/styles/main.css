@@ -61,7 +61,15 @@ html, body {
     flex-direction: row;
     justify-content: space-around;
     margin-top: 2rem;
+    
 }
+
+@media (max-width: 850px) {
+    .main-header-box {
+        flex-wrap: wrap;
+    }
+}
+
 
 div h1 {
     margin: 1.5rem 0 3rem 0;
@@ -73,19 +81,20 @@ div h1 {
     border: 1px solid grey;
     border-radius: .35rem;
     padding: 2rem;
-    /* display: flex;
-    flex-wrap: wrap;
-    flex-direction: row; */
 }
 
 .container {
     box-sizing: border-box;
+    
 }
 
 .container #welcome-span {
     color: var(--bg-color);
     font-weight: 500;
 }
+
+
+
 
 
 /* CALENDAR */
@@ -100,6 +109,13 @@ div h1 {
     padding: 1.7rem;
     margin-left: 4rem;
     margin-right: 2rem;
+}
+
+
+
+.card,
+.main-header-box {
+    max-width: 1140px;
 }
 
 
