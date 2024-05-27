@@ -97,6 +97,6 @@ License
 Distributed under the MIT License. See LICENSE for more information.
 
 Contact
-Your Name - your@email.com
+Your Name - davidpal3c@gmail.com
 
 Project Link: https://github.com/davidpal3c/eventhub-mgmt-app.git
