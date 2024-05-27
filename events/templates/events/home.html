@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
       
@@ -15,30 +15,37 @@
         {% endif %}
         
         <p class="lead">Welcome to <span id="welcome-span">EventHub</span>, an app show-casing basic event-management 
-          features, authentication & OAuth, CRUD, permissions, admin dashboard, and more. Dive in!</p>
+          features, authentication & OAuth, CRUD, permissions, admin dashboard, and more. Dive in! <br><br><strong>Disclaimer:</strong> this website is for educative and demonstrative purposes only. No actual events are posted on this website. 
+        
+        </p>
       </div>
     </div>  
 
     </div>
     <div class="flex-calendar-box">
-      <br>
-      As of {{ time }}
-      <br>
-      <br>
-      {{ cal | safe }}
+      <img src="{% static '/img/eventhub-logo-png.png' %}" alt="eventhub-logo">
+      <p>As of {{ time }}</p>
+      <p>{{ cal | safe }}</p>
     </div>
   </div>
  
 
 
-
-
-
       {% if event_list %}
-          <br><br><br>
-          <h2> Events for {{ month }} {{ year }} </h2>
+
+          <div class="date-paginator-bx">
+              <h2>Events in: </h2>
+              <div class="date-paginator" id="date-paginator">
+                <a href="{% url 'events:home' prev_year prev_month %}"><i class="bi bi-arrow-left-circle"></i></a>
+                <h2>{{ month }}</h2>
+                <h2>{{ year }}</h2>
+                <a href="{% url 'events:home' next_year next_month %}"><i class="bi bi-arrow-right-circle"></i></a>
+              </div>
+          </div>
+                  
           <br><br>
           {% for event in event_list %}
+          
           <div class="card">
             <div class="card-header" id="card-header-events">
               <h3>{{ event }}</h3>
@@ -71,30 +78,54 @@
               </div>                
                 
             </div>
-              <div class="card-footer text-muted">
-                {% if not user.is_authenticated %}
-                  <a href="{% url 'login'%}" class="btn btn-outline-success btn-sm">Join Event</a>  
-                {% endif %}
-
-                <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
-
-                {% if user.is_authenticated %}
-                  {% if user == event.manager %}
-                
-                      <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
-                      <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
-                    
+            <div class="card-footer text-muted"> 
+              <div class="btn-bx">  
+                <div>
+                  {% if not user.is_authenticated %}
+                    <a href="{% url 'login'%}" class="btn btn-outline-success btn-sm">Join Event</a>  
                   {% endif %}
-                {% endif %} 
-              </div>         
     
-            </div><br><br>
+                    <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
+    
+                    {% if user.is_authenticated and event.approved %} 
+                      {% if user not in event.attendees.all or user.is_superuser %}
+                        <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>                 
+    
+                      {% elif user in event.attendees.all %}
+                        <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
+                      {% endif %}
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    {% if user == event.manager %}
+                  
+                        <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+                        <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+                      
+                    {% endif %}
+                  {% endif %} 
+                </div>
+              </div>         
+            </div>
+          </div>
+          <br><br>
           {% endfor %}
           <br><br>
       {% else %}
-          Sorry... there are no events this month
+          <div class="date-paginator-bx">
+              <h2>Events in: </h2>
+              <div class="date-paginator" id="date-paginator">
+                <a href="{% url 'events:home' prev_year prev_month %}"><i class="bi bi-arrow-left-circle"></i></a>
+                <h2>{{ month }}</h2>
+                <h2>{{ year }}</h2>
+                <a href="{% url 'events:home' next_year next_month %}"><i class="bi bi-arrow-right-circle"></i></a>
+              </div>
+          </div>
+          <h5>Sorry... there are no events this month</h5>
       {% endif %}
 
       <br><br><br>
 </div>
+
+
+
 {% endblock %}

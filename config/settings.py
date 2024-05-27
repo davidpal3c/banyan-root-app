@@ -65,6 +65,8 @@ MIDDLEWARE = [
 ACCOUNT_ADAPTER = 'userauth.adapter.CustomAccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'userauth.adapter.CustomSocialAccountAdapter'
 
+# AUTH_USER_MODEL = 'userauth.CustomUser'
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -186,3 +188,35 @@ MEDIA_ROOT = (os.path.join(BASE_DIR, 'media/'))
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIALAUTH_GOOGLEOAUTH2_KEY')
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIALAUTH_GOOGLEOAUTH2_SEC')
+
+
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+#     'https://www.googleapis.com/auth/userinfo.email',
+#     'https://www.googleapis.com/auth/userinfo.profile'
+# ]
+
+# SOCIAL_AUTH_PIPELINE = (
+#     'social_core.pipeline.social_auth.social_details',
+#     'social_core.pipeline.social_auth.social_uid',
+#     'social_core.pipeline.social_auth.auth_allowed',
+#     'social_core.pipeline.social_auth.social_user',
+#     'social_core.pipeline.user.get_username',
+#     'social_core.pipeline.user.create_user',
+#     'social_core.pipeline.social_auth.associate_user',
+#     'social_core.pipeline.social_auth.load_extra_data',
+#     'userauth.pipeline.save_email',  
+# )
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+

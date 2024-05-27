@@ -41,9 +41,17 @@
                 </ul>        
             </p>      
             </div>
+            {% if user not in event.attendees.all or user.is_superuser %}
+                <div class="card-footer text-muted">  
+                    <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>                 
+            {% elif user in event.attendees.all %}
+                    <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
+                </div>  
+            {% endif %}
+            
             {% if user.is_authenticated %}
                 {% if user == event.manager %}
-                    <div class="card-footer text-muted">
+                    
                         <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
                         <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
                     </div>
@@ -52,7 +60,7 @@
         
         {% else %}
 
-        <h5>This event hasn't been approved yet. Contact Support for details: <a href="mailto:admin@event-buzz.ca?subject=Event approval inquiry">admin@event-buzz.ca</a></h5>
+        <h5>This event hasn't been approved yet. <br>Contact Support for details: <a href="mailto:admin@event-buzz.ca?subject=Event approval inquiry">admin@eventhub.ca</a></h5>
         {% endif %}
 
 

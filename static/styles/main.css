@@ -71,6 +71,9 @@ html, body {
 }
 
 
+
+
+
 div h1 {
     margin: 1.5rem 0 3rem 0;
 }
@@ -107,10 +110,62 @@ div h1 {
     height: 18rem;
     width: 10;
     padding: 1.7rem;
-    margin-left: 4rem;
-    margin-right: 2rem;
+    margin: 1.3rem 2rem 0 4rem;
 }
 
+.flex-calendar-box img {
+    width: 2rem;
+    height: auto;
+    margin: 0rem 0rem 0 9rem;
+    text-align: right;
+}
+
+.container .date-paginator-bx {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1rem 1.7rem 0;
+    width: 31rem;
+    height: 4rem;
+    padding: 0.5rem;
+    background-color: #f0f0f0;
+    border-radius: .35rem;
+    box-shadow: 0 0 0.2rem #c7c7c8;
+    color: var(--third-bg-color);
+}
+
+
+.container .date-paginator-bx h2 {
+    margin-top: 0.5rem;
+}
+
+
+#date-paginator {
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    align-items: center;
+    border-radius: .35rem;
+    padding: 0.2rem;
+}
+ 
+#date-paginator i {
+    font-size: 2rem;
+    margin: 0 0.5rem 0 0.5rem;
+    color: var(--third-bg-color);
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#date-paginator i:hover {
+    color: #449ae0;
+    transition: .6s ease;
+}
+
+
+#date-paginator h2 {
+    margin: 0 0.5rem 0 0.5rem;
+}
 
 
 .card,
@@ -118,7 +173,9 @@ div h1 {
     max-width: 1140px;
 }
 
-
+.container h5 {
+    margin-left: 2rem;
+}
 
 
 /* EVENT INFO DISPLAY */
@@ -335,7 +392,9 @@ div h1 {
     background-size: cover;
     border-radius: .25rem;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .container .register-main {
@@ -345,6 +404,7 @@ div h1 {
     background-repeat: no-repeat; 
     background-size: cover;
     border-radius: .25rem;
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -360,8 +420,7 @@ div h1 {
     background: rgba(0, 0, 0, .1);  
     /* backdrop-filter: blur(80px);   */
     border-radius: .35rem;
-    margin-right: 4.3rem;
-    margin-top: 4.6rem;
+
     padding: 1rem;
     box-shadow: 0 0 2rem var(--border);
 }
@@ -372,7 +431,7 @@ div h1 {
     background: rgba(0, 0, 0, .1);  
     border-radius: .35rem;
     /* margin-right: 4.3rem; */
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     padding: 1rem;
     box-shadow: 0 0 1rem var(--second-btn-color);
 }
@@ -455,7 +514,17 @@ div h1 {
     transition: 0.7s ease;
 }
 
+.google-signin-button {
+    display: inline-block;
+    margin-top: 10px;
+}
 
+.google-signin-button img {
+    width: 191px; /* Adjust width according to the provided image */
+    height: 46px; /* Adjust height according to the provided image */
+    border: none;
+    cursor: pointer;
+}
 
 
 /* #login-form-bx form .submit {

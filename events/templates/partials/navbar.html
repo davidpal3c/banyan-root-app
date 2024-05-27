@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}"><img src="{% static '/img/eventhub-logo-png.png' %}" alt="eventhub-logo"></a>
-            <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}" class="navbar-brand">Event Buzz</a>
+            <a href="{% url 'events:home' year=gcurrent_year month=gcurrent_month %}" class="navbar-brand">EventHub</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-lable="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,8 +21,8 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a href="{% url 'events:list-events' %}" class="dropdown-item">Show All Events</a></li>
                             {% if user.is_authenticated %}
-                                <li><a href="{% url 'events:add-event' %}" class="dropdown-item">Add Event</a></li>
                                 <li><a href="{% url 'events:my-events' %}" class="dropdown-item">My Events</a></li>
+                                <li><a href="{% url 'events:add-event' %}" class="dropdown-item">Add Event</a></li>
                             {% endif%}
                             <li><a href="{% url 'events:search-events' %}" class="dropdown-item">Search Events</a></li>
                         </ul>
@@ -39,8 +39,6 @@
                             {% endif %}
                         </ul>
                     </li>
-
-
 
                     <!-- Authentication access -->
                     {% if user.is_authenticated %}

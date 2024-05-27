@@ -68,7 +68,7 @@ class VenueForm(ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Venue Name'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
             'city_state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City/State'}),
-            'country': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City/State'}),
+            'country': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Country'}),
             'zip_code': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Zip Code'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'web': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Web Address'}),

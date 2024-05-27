@@ -6,9 +6,9 @@
   <h1>Events</h1>
   <br>
 
-  {% for event in event_list %}
+  
 
-    
+    {% for event in event_list %}
       <div class="card">
         <div class="card-header">
           {{ event }}
@@ -82,27 +82,22 @@
 
                 <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
 
-                {% if user.is_authenticated %} 
+                {% if user.is_authenticated and event.approved %} 
                   {% if user not in event.attendees.all or user.is_superuser %}
                     <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>                 
 
                   {% elif user in event.attendees.all %}
                     <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
                   {% endif %}
-
-                {% elif user in event.attendees.all %}
-                  <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
                 {% endif %}
             </div>
             <div>
               {% if user == event.manager or user.is_superuser %}                    
                 <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>               
                 <!-- Button trigger modal -->
-                <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete Event</a>                
-            </div> 
-          </div>  
+                <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">Delete Event</a>     
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -118,20 +113,14 @@
                       </div>
                     </div>
                   </div>
-                </div>
-            
-          {% endif %}
-
+                </div>  
+              {% endif %}         
+            </div> 
+          </div>    
         </div><br><br>
-         
-
       </div>
-
-  
-
-  <br><br>
-  {% endfor %}
-  
-  
+    <br><br>
+    {% endfor %} 
+           
 
 {% endblock %}

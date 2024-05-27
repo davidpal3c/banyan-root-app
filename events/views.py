@@ -4,7 +4,7 @@ from django.db.models import Count
 
 import calendar
 from calendar import HTMLCalendar
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 
 from django.shortcuts import get_object_or_404
@@ -135,14 +135,19 @@ def my_events(request):
     if request.user.is_authenticated:
         user = request.user.id
         events = Event.objects.filter(attendees=user)
+        has_events = events.exists()
         # managed_events = Event.objects.filter()
 
         return render(request, 'events/my_events.html', 
-                      {"events":events,})
+                      {"events":events,
+                       "has_events": has_events})
 
     else:
         messages.success(request, ("You aren't Authorized to View this Page."))
         return redirect('events:list-events')
+ 
+
+
  
 def search_events(request):
     if request.method == "POST":  
@@ -195,6 +200,7 @@ def search_venues(request):
 def delete_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
     venue.delete()
+    messages.success(request, ("Venue Deleted!"))
     return redirect('events:list-venues')
 
 
@@ -394,7 +400,6 @@ def add_event(request):
 def list_venues(request):
     # venue_list = Venue.objects.all().order_by('name')       # order by random ='?'
  
-    # pagination setup
     p = Paginator(Venue.objects.all(), 4)
     page = request.GET.get('page')
     venues = p.get_page(page)
@@ -431,18 +436,32 @@ def home(request, year=None, month=None):
         month = timezone.now().strftime('%B')
 
     # Convert month name to month number
-    month_number = list(calendar.month_name).index(month.capitalize())
+    try:
+        month_number = list(calendar.month_name).index(month.capitalize())
+    except ValueError:
+        month_number = timezone.now().month
 
-    # Create calendar
+
+    
+    # Create a datetime object for easier month navigation
+    current_date = datetime(year, month_number, 1)
+
+    # Calculate previous and next months
+    prev_month = (current_date - timedelta(days=1)).strftime('%B')
+    prev_year = (current_date - timedelta(days=1)).year
+    next_month = (current_date + timedelta(days=32)).strftime('%B')
+    next_year = (current_date + timedelta(days=32)).year
+
+
     cal = HTMLCalendar().formatmonth(year, month_number)
 
-    # Get current year and time
-    # current_datetime = timezone.now()
     current_year = timezone.now().year
     current_time = timezone.now().strftime('%I:%M: %p')
 
     # Query events model for the specified date
     event_list = Event.objects.filter(event_date__year=year, event_date__month=month_number)
+    
+    
 
     context = {
         "year": year,
@@ -451,7 +470,11 @@ def home(request, year=None, month=None):
         "cal": cal,
         "current_year": current_year,
         "time": current_time,
-        "event_list": event_list
+        "event_list": event_list,
+        "prev_year": prev_year,
+        "prev_month": prev_month,
+        "next_year": next_year,
+        "next_month": next_month,
     }
 
     return render(request, 'events/home.html', context)

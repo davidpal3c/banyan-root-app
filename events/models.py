@@ -4,10 +4,10 @@ from datetime import date
 
 class Venue(models.Model):
     name            = models.CharField('Venue Name', max_length=120)
-    address         = models.CharField(max_length=300)
-    city_state      = models.CharField(max_length=100, default='Unknown')
-    country         = models.CharField(max_length=40, default='Unknown')
-    zip_code        = models.CharField('Zip Code', max_length=12)
+    address         = models.CharField(max_length=300, blank=True, null=True)
+    city_state      = models.CharField(max_length=100, blank=True, null=True)
+    country         = models.CharField(max_length=40, blank=True, null=True)
+    zip_code        = models.CharField('Zip Code', max_length=12, blank=True, null=True)
     phone           = models.CharField('Contact Phone', max_length=25, blank=True)
     web             = models.URLField('Website Address', blank=True)
     email_address   = models.EmailField('Email', blank=True)
@@ -61,7 +61,7 @@ class Event(models.Model):
             return event_status
         
         else:
-            event_status = "Future"
+            event_status = "Pending"
             return event_status
         
 

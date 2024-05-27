@@ -4,11 +4,42 @@
 
     <h2>My Events</h2>
     <br>
-    <ul>
-        {% for event in events %}
-        
-            <li><a href="{% url 'events:show-event' event.id %}">{{ event }}</a> at {{ event.venue }} | {{ event.event_date }}<br>
-        {% endfor %}
-    </ul>
+
+
+
+
+{% if has_events %}
+    <div class="main-header">
+        <div class="venue-events-box">
+            <!-- List Events by Venue -->
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Venue Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td><a href="{% url 'events:show-event' event.id %}">{{event}}</a></td>
+                        <td>{{ event.event_date }}</td>
+                        <td>{{ event.venue }}</td>
+                        <td><a href="http://maps.google.com/?q={{ event.venue.address }}{{ event.venue.city_state }}" target="_blank"> {{ event.venue.address }} {{ event.venue.city_state }}</a></td>
+                        <td><a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Unregister</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+    </div>
+{% else %}
+    <h4>You have not events registered.</h4>
+{% endif %}
+
+
 
 {% endblock %}

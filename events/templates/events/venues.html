@@ -17,7 +17,12 @@
         {% for venue in venues %}
         <div class="col">
           <div class="card">
-            <a href="{% url 'events:show-venue' venue.id %}"><img src="{{ venue.venue_image.url }}" class="card-img-top" width=500 alt="venue-image"></a>
+            {% if venue.venue_image %}
+                <a href="{% url 'events:show-venue' venue.id %}"><img src="{{ venue.venue_image.url }}" class="card-img-top" width=500 alt="venue-image"></a>
+            {% else %}
+                <p>No image uploaded for this venue.</p>
+            {% endif %}
+
             <div class="card-body">
               <h5 class="card-title">{{venue}}</h5>
               <p class="card-text">

@@ -10,23 +10,26 @@
             <tr>
                 <th>Name</th>
                 <th>Date</th>
+                <th>Venue</th>
                 <th>Attendees</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            {% for event in events %}
-                <tr>
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.event_date }}</td>
-                    <td>{{ event.attendees.count }}</td>
-                    <td><a href="{% url 'events:show-event' event.id %}" class="btn btn-primary">Show Event</a></td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4">No events found.</td>
-                </tr>
-            {% endfor %}
+
+                {% for event in events %}
+                    <tr>
+                        <td>{{ event.name }}</td>
+                        <td>{{ event.event_date }}</td>
+                        <td>{{ event.venue }}</td>
+                        <td>{{ event.attendees.count }}</td>
+                        <td><a href="{% url 'events:show-event' event.id %}" class="btn btn-primary">Show Event</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No events found.</td>
+                    </tr>
+                {% endfor %}
         </tbody>
     </table>
 
@@ -36,7 +39,6 @@
             <tr>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Zip Code</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -44,8 +46,7 @@
             {% for venue in venues %}
                 <tr>
                     <td>{{ venue.name }}</td>
-                    <td>{{ venue.address }}</td>
-                    <td>{{ venue.zip_code }}</td>
+                    <td>{{ venue.address }}{{ venue.city_state }}</td>
                     <td><a href="{% url 'events:show-venue' venue.id %}" class="btn btn-primary">Show Venue</a></td>
                 </tr>
             {% empty %}
