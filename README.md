@@ -21,7 +21,7 @@ To install Event Hub locally, follow these steps:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/Event-Hub.git
+   git clone https://github.com/davidpal3c/eventhub-mgmt-app.git
    ```
 
 2. Navigate to the cloned directory:
@@ -68,10 +68,35 @@ To install Event Hub locally, follow these steps:
 
 Once installed, navigate to `http://localhost:8000` in your browser to access the Event Hub application. Use the admin panel to manage events and venues, or sign up as a regular user to create and attend events.
 
-## Contributing
-
-Contributions are welcome Feel free to fork the repository, make changes, and submit a pull request.
-
 ## License
 
 Event Hub is open-source software licensed under the MIT license.
+
+
+Deployment
+EventHub is deployed on Railway. Visit EventHub to explore the platform.
+
+## Built With
+Django - The web framework used
+Bootstrap - Used for styling
+ReportLab - For generating PDF reports
+Pillow - Image processing library
+Gunicorn - WSGI HTTP Server for UNIX
+HTML/CSS/Javascript - front-end languages
+
+
+## Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+Fork the Project
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
+Commit your Changes (git commit -m 'Add some AmazingFeature')
+Push to the Branch (git push origin feature/AmazingFeature)
+Open a Pull Request
+License
+Distributed under the MIT License. See LICENSE for more information.
+
+Contact
+Your Name - your@email.com
+
+Project Link: https://github.com/davidpal3c/eventhub-mgmt-app.git

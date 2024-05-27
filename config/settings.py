@@ -22,10 +22,12 @@ SECRET_KEY = os.getenv('DJNKEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('DEBUG'))
-ENVIRONMENT = 'production'
+ENVIRONMENT = (os.getenv('ENVIRONMENT'))
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'eventhub.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://eventhub.up.railway.app']
 
 SITE_ID = 1
 # Application definition
