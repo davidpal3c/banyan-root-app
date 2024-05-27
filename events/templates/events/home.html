@@ -30,7 +30,6 @@
   </div>
  
 
-
       {% if event_list %}
 
           <div class="date-paginator-bx">
@@ -59,7 +58,9 @@
                       <ul>   
                           <li><span class="label">Date:</span> {{ event.event_date }}</li>
                           <li><span class="label">Days Until Event:</span> {{ event.days_until }} ( {{ event.is_past }} )</li>
-                          <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>          
+                          {% if event.venue.web %}
+                            <li><span class="label">Venue URL:</span><a href="{{ event.venue.web }}"> {{ event.venue.web }}</a></li>          
+                          {% endif %}
                           <li><span class="label">Description:</span> {{ event.description }}</li>            
                           <br>
                       </ul>  

@@ -22,8 +22,12 @@
                   <ul>   
                       <li><span class="label">Date:</span> {{ event.event_date }}</li>
                       <li><span class="label">Days Until Event:</span> {{ event.days_until }} - ({{ event.is_past }})</li>
+                      {% if event.venue.address and event.venue.city_state %}
                       <li><span class="label">Venue Location:</span><a href="http://maps.google.com/?q={{ event.venue.address }}{{ event.venue.city_state }}"> {{ event.venue.address }} {{ event.venue.city_state }}</a> </li>
-                      <li><span class="label">Venue URL:</span> <a href="{{ event.venue.web }}">{{ event.venue.web }}</a></li>
+                      {% endif %}
+                      {% if event.venue.web %}
+                        <li><span class="label">Venue URL:</span> <a href="{{ event.venue.web }}">{{ event.venue.web }}</a></li>
+                      {% endif %}
                       <li><span class="label">Description:</span> {{ event.description }}</li>
 
                       {% if event.approved %}
