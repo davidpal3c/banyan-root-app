@@ -5,4 +5,4 @@ system = ["python312", "postgresql", "gcc"]
 command = "python -m venv /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt"
 
 [start]
-command = ". /opt/venv/bin/activate && gunicorn config.wsgi:application"
+command = ". /opt/venv/bin/activate && gunicorn config.wsgi"
