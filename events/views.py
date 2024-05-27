@@ -398,13 +398,14 @@ def add_event(request):
 
 
 def list_venues(request):
-    # venue_list = Venue.objects.all().order_by('name')       # order by random ='?'
+    ordered_venues = Venue.objects.all().order_by('name')       # order by random ='?'
  
-    p = Paginator(Venue.objects.all(), 4)
+    p = Paginator(ordered_venues, 4)
     page = request.GET.get('page')
     venues = p.get_page(page)
     page_range = range(1, venues.paginator.num_pages + 1) 
     
+ 
 
     return render(request, 'events/venues.html', 
                   {'venues': venues,
