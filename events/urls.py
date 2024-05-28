@@ -27,5 +27,6 @@ urlpatterns = [
     path('search_events', views.search_events, name='search-events'),
     path('admin_approval', views.admin_approval, name='admin-approval'),
     path('show_event/<event_id>/', views.show_event, name='show-event'),    
-    path('privacy_policy', views.privacy_policy, name='privacy-policy'),    
+    path('privacy_policy/', views.privacy_policy, name='privacy-policy'),    
+    path('terms_of_service/', views.terms_of_service, name='terms-of-service'),    
 ]

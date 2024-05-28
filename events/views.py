@@ -32,6 +32,10 @@ import io
 from django.core.paginator import Paginator
 
 
+def terms_of_service(request):
+    return render(request, 'events/terms_of_service.html')
+
+
 def privacy_policy(request):
     return render(request, 'events/privacy_policy.html')
 
