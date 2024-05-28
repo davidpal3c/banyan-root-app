@@ -32,7 +32,8 @@ import io
 from django.core.paginator import Paginator
 
 
-
+def privacy_policy(request):
+    return render(request, 'events/privacy_policy.html')
 
 
 # Generate Venue PDF file

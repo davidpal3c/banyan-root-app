@@ -133,6 +133,15 @@ div h1 {
     border-radius: .35rem;
     box-shadow: 0 0 0.2rem #c7c7c8;
     color: var(--third-bg-color);
+    cursor: pointer;
+    transition: .6s ease;
+}
+
+
+.container .date-paginator-bx:hover {
+    background-color: #cdcee4;
+    margin-bottom: 0.5rem;
+    transition: .6s ease;
 }
 
 
@@ -140,6 +149,9 @@ div h1 {
     margin-top: 0.5rem;
 }
 
+.container .date-paginator-bx h2 {
+    color
+}
 
 #date-paginator {
     display: flex;

@@ -87,10 +87,10 @@
                 <a href="{% url 'events:show-event' event.id %}" class="btn btn-outline-primary btn-sm">Show Event</a>
 
                 {% if user.is_authenticated and event.approved %} 
-                  {% if user not in event.attendees.all or user.is_superuser %}
+                  {% if user not in event.attendees.all and event.past == 'Pending' or user.is_superuser %}
                     <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>                 
 
-                  {% elif user in event.attendees.all %}
+                  {% elif user in event.attendees.all and event.past != 'Past' %}
                     <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
                   {% endif %}
                 {% endif %}

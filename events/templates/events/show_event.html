@@ -11,60 +11,65 @@
             {{ event }}
             </div>
             <div class="card-body">
-            <h5 class="card-title">Venue: {{ event.venue }}</h5>
-            <p class="card-text">     
-                <ul>   
-                    <li><span class="label">Date:</span> {{ event.event_date }}</li>
-                    <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
-                    <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
-                    <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
-                    <li><span class="label">Manager:</span> {{ event.manager }}</li>
-                    <li><span class="label">Description:</span> {{ event.description }}</li>
-                    <li><span class="label">Approved:</span> {{ event.approved }}</li>
-                    <br>
-                </ul>
-                <ul>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Confirmed Attendees ({{ attendee_count }}):
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                        {% for user in event.attendees.all %}
-                        <li>{{ user }}</li>
-                        {% endfor %}
+                <h5 class="card-title">Venue: {{ event.venue }}</h5>
+                <p class="card-text">     
+                    <ul>   
+                        <li><span class="label">Date:</span> {{ event.event_date }}</li>
+                        <li><span class="label">Days Until Event:</span> {{ event.days_until }} </li>
+                        <li><span class="label">Ocurred:</span> {{ event.is_past }} </li>
+                        <li><span class="label">Venue URL:</span> {{ event.venue.web }}</li>
+                        <li><span class="label">Manager:</span> {{ event.manager }}</li>
+                        <li><span class="label">Description:</span> {{ event.description }}</li>
+                        <li><span class="label">Approved:</span> {{ event.approved }}</li>
+                        <br>
+                    </ul>
+                    <ul>
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Confirmed Attendees ({{ attendee_count }}):
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                {% for user in event.attendees.all %}
+                                <li>{{ user }}</li>
+                                {% endfor %}
+                                </div>
                         </div>
-                    </div>
-                </ul>        
-            </p>      
+                    </ul>        
+                </p>      
             </div>
-            {% if user not in event.attendees.all or user.is_superuser %}
-                <div class="card-footer text-muted">  
-                    <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>                 
-            {% elif user in event.attendees.all %}
-                    <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
-                </div>  
-            {% endif %}
-            
-            {% if user.is_authenticated %}
-                {% if user == event.manager %}
+
+
+            <div class="card-footer text-muted"> 
+                <div class="btn-bx"> 
+                    {% if user not in event.attendees.all and event.past == 'Pending' or user.is_superuser %}
+                        <div class="card-footer text-muted">  
+                            <a href="{% url 'events:join-event' event.id %}" class="btn btn-outline-success btn-sm">Join Event</a>                 
+                    {% elif user in event.attendees.all and event.past != 'Past' %}
+                            <a href="{% url 'events:leave-event' event.id %}" class="btn btn-outline-danger btn-sm leave-btn">Leave Event</a>
+                        </div>  
+                    {% endif %}
                     
-                        <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
-                        <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
-                    </div>
-                {% endif %}
-            {% endif %}    
-        
+                    {% if user.is_authenticated %}
+                        {% if user == event.manager %}
+                            
+                                <a href="{% url 'events:update-event' event.id %}" class="btn btn-outline-secondary btn-sm">Update Event</a>
+                                <a href="{% url 'events:delete-event' event.id %}" class="btn btn-outline-danger btn-sm">Delete Event</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}    
+                            
         {% else %}
 
         <h5>This event hasn't been approved yet. <br>Contact Support for details: <a href="mailto:admin@event-buzz.ca?subject=Event approval inquiry">admin@eventhub.ca</a></h5>
         {% endif %}
-
-
-    </div><br><br>
+                   
+            </div>
+        
+        </div><br><br>
    
 
 {% endblock %} 
