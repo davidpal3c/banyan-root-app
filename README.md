@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Event Hub is a comprehensive event management application designed to streamline the process of creating, managing, and attending events. Built with Django, a powerful Python web framework, Event Hub offers robust features such as user authentication, event creation and management, venue details, and more. This application is ideal for organizations looking to centralize their event planning and execution processes.
+Event Hub is a comprehensive event management application designed to streamline the process of creating, managing, and attending events. Built with Django, a powerful Python web framework, Event Hub offers robust features such as user authentication, event creation and management, venue details, and more. It is an application in its early stages, developed from demonstrative and educative purposes only.
 
 ## Features
 
