@@ -1,8 +1,0 @@
-[setup]
-system = ["python312", "postgresql", "gcc"]
-
-[install]
-command = "python -m venv /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt"
-
-[start]
-command = ". /opt/venv/bin/activate && gunicorn config.wsgi"
