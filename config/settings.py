@@ -20,12 +20,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJNKEY')
 
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DEBUG'))
 ENVIRONMENT = (os.getenv('ENVIRONMENT'))
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'eventhub.up.railway.app']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'eventhub.up.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', '.now.sh']
+
+
 
 CSRF_TRUSTED_ORIGINS = ['https://eventhub.up.railway.app']
 
