@@ -150,7 +150,7 @@ EMAIL_BACKEND = os.getenv('EBACKEND')
 EMAIL_HOST = os.getenv('EHOST')
 EMAIL_HOST_USER = os.getenv('EHOSTUSER')
 EMAIL_HOST_PASSWORD = os.getenv('EHOSTPASS')
-EMAIL_PORT = int(os.getenv('EPORT'))  
+EMAIL_PORT = 587 
 EMAIL_USE_TLS = bool(os.getenv('ETLS'))
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULTFROMEMAIL')
 
@@ -175,6 +175,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_PROJECT_DIR = os.path.join(BASE_DIR, 'static')
 STYLES_DIR = os.path.join(STATIC_PROJECT_DIR, 'styles')
