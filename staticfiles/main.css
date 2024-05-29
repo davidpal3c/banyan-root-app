@@ -257,14 +257,16 @@ div h1 {
 }
 
 
-.card-footer .btn-bx {
+.card-footer #btn-bx {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: row-reverse;
 }
 
 
-
+/* .event_btn { 
+    display: flex;
+    flex-direction: row;
+} */
 
 /* ADMIN DASHBOARD */
 
