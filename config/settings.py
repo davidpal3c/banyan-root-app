@@ -26,9 +26,11 @@ DEBUG = (os.getenv('DEBUG'))
 ENVIRONMENT = (os.getenv('ENVIRONMENT'))
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'eventhub.up.railway.app']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+ALLOWED_HOSTS = ['eventhub.up.railway.app']
 CSRF_TRUSTED_ORIGINS = ['https://eventhub.up.railway.app']
+
 
 SITE_ID = 1
 # Application definition
