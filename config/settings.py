@@ -129,7 +129,6 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
@@ -146,7 +145,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
 
 
 # Password validation
